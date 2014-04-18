@@ -19,6 +19,7 @@ setup(name='autotest',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
+          "blessings",
       ],
       entry_points="""
       # -*- Entry points: -*-
