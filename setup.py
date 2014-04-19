@@ -23,5 +23,7 @@ setup(name='autotest',
       ],
       entry_points="""
       # -*- Entry points: -*-
+      [console_scripts]
+      autotest=autotest.main:main
       """,
       )
