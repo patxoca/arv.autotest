@@ -34,7 +34,7 @@ class TypedObject(object):
         validator = self._validators[name]
         if callable(validator):
             try:
-                validator(value)
+                value = validator(value)
             except ValueError:
                 raise ValueError("Wrong value '%s' for option '%s'" % (name, value))
-        self.__dict__[name] = value
+        self._values[name] = value

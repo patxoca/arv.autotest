@@ -11,6 +11,7 @@ from autotest.config import TypedObject
 def is_int(value):
     if not isinstance(value, int):
         raise ValueError()
+    return value
 
 class TestSetAttr(unittest.TestCase):
 
@@ -18,14 +19,17 @@ class TestSetAttr(unittest.TestCase):
         self.options = {
             "verbosity": (0, is_int),
             "whatever": (None, None),
+            "doubled": (0, lambda x : is_int(x) * 2)
         }
         self.typed_object = TypedObject(self.options)
 
     def test_ok_if_name_exists_and_validator_passes(self):
         name = "verbosity"
+        value = 2
         self.assert_(name in self.typed_object._values)
         self.assert_(callable(self.typed_object._validators[name]))
-        setattr(self.typed_object, name, 2)
+        setattr(self.typed_object, name, value)
+        self.assertEqual(getattr(self.typed_object, name), value)
 
     def test_ok_if_name_exists_and_validator_is_not_callable(self):
         name = "whatever"
@@ -53,6 +57,14 @@ class TestSetAttr(unittest.TestCase):
             ValueError,
             self.typed_object.__setattr__, name, value
         )
+
+    def test_validator_may_alter_assigned_value(self):
+        self.typed_object.doubled = 1
+        self.assertEqual(self.typed_object.doubled, 2)
+
+    def test_ensure__dict__is_not_modified(self):
+        self.typed_object.verbosity = 2
+        self.failIf("verbosity" in self.typed_object.__dict__)
 
 
 class TestGetAttr(unittest.TestCase):

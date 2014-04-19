@@ -17,6 +17,7 @@ from autotest.utils import NoDefault
 def is_int(value):
     if not isinstance(value, int):
         raise ValueError()
+    return value
 
 
 class TestParseConfig(unittest.TestCase):
