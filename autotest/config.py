@@ -31,8 +31,8 @@ class ConfigurationError(Exception):
 
 WATCH_NODE_SCHEMA = {
     "path" : (NoDefault, V.is_dir),
-    "recurse": (False, V.is_bool),
-    "auto_add": (False, V.is_bool),
+    "recurse": (True, V.is_bool),
+    "auto_add": (True, V.is_bool),
     "include": ([], V.is_list_of(V.is_regex)),
     "exclude": ([], V.is_list_of(V.is_regex))
 }
