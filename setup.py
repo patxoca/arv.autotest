@@ -6,20 +6,29 @@ version = '0.1'
 setup(name='autotest',
       version=version,
       description="Executa tests al canviar els arxius",
-      long_description="""\
-""",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      long_description=file("README.rst").read(),
+      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
+      classifiers=[
+          "Development Status :: 2 - Pre-Alpha",
+          "Environment :: Console",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+          "Natural Language :: English",
+          "Programming Language :: Python :: 2.7",
+          "Topic :: Software Development :: Testing",
+      ],
       keywords='',
       author='Alexis Roda',
       author_email='alexis.roda.villalonga@gmail.com',
       url='',
-      license='GPL',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+      license='GPLv3+',
+      packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
           "blessings",
+          "pyinotify",
       ],
       entry_points="""
       # -*- Entry points: -*-
