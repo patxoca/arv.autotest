@@ -43,19 +43,27 @@ class simple_event_filter_factory(object):
 
     * exclusion rules are processed before inclusion rules.
 
+    * additionally a ``global_ignores`` (a list of compiled regexs)
+      can be specified to the constructor. That list takes precedence
+      over all watches. This parameter is useful in gobally ignoring
+      temporary files, VCS files etc.
+
     Instances of this class return ``True`` if the event is *included*
     according to the rules defined by the watches, ``False``
     otherwise.
 
     """
-    def __init__(self, watches):
+    def __init__(self, watches, global_ignores=[]):
         w = list(watches)
         # sort the watches by descending path length to make sure that
         # watches on subdirs are processed before its parents
         w.sort(key=lambda x : -len(x.path))
         self._watches = w
+        self._global_ignores = global_ignores
 
     def __call__(self, event):
+        if self._match_any(self._global_ignores, event.name):
+            return False
         container = self._get_container(event.path)
         if container is None:
             # @TODO: alex 2014-04-20 17:03:44 : no hauria de passar

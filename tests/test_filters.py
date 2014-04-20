@@ -112,6 +112,16 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
         ])
         self.assert_(filter(event))
 
+    def test_global_exclude_takes_over_all(self):
+        event = make_event(self.tmpdir, ".exclude.abc")
+        filter = simple_event_filter_factory(
+            watches=[
+                make_watch(self.tmpdir, include=[u".*\\.abc"]),
+            ],
+            global_ignores=[re.compile("\\..*")]
+        )
+        self.failIf(filter(event))
+
 
 class TestFilterCombinators(unittest.TestCase):
 
