@@ -23,17 +23,27 @@ import json
 
 from autotest.utils import NoDefault
 from autotest.utils import TypedObject
+from autotest import validators as V
 
 
 class ConfigurationError(Exception):
     pass
 
+WATCH_NODE_SCHEMA = {
+    "path" : (NoDefault, V.is_dir),
+    "recurse": (False, V.is_bool),
+    "auto_add": (False, V.is_bool),
+    "include": ([], V.is_list_of(V.is_regex)),
+    "exclude": ([], V.is_list_of(V.is_regex))
+}
+
+watch_node_validator = V.make_validator_from_schema(WATCH_NODE_SCHEMA)
 
 SCHEMA = {
     # option : (default_value, validator_or_None)
     "command" : (NoDefault, None),
-    "include_files_regex": ([], None),
-    "exclude_files_regex": ([], None),
+    "watch" : ([], V.is_list_of(watch_node_validator)),
+    "global_ignore" : ([], V.is_list_of(V.is_regex))
 }
 
 
