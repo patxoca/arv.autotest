@@ -36,5 +36,5 @@ class TypedObject(object):
             try:
                 value = validator(value)
             except ValueError:
-                raise ValueError("Wrong value '%s' for option '%s'" % (name, value))
+                raise ValueError("Wrong value '%s' for option '%s'" % (value, name))
         self._values[name] = value
