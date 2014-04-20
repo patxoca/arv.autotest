@@ -140,10 +140,10 @@ class TestValidators(unittest.TestCase):
         self.assertRaises(ValueError, V.is_unicode, 2)
 
     def test_passing_is_regex(self):
-        regex = re.compile(".")
         value = u"test.*\.py"
         result = V.is_regex(value)
-        self.assert_(isinstance(result, regex.__class__))
+        self.assert_(hasattr(result, "match"))
+        self.assert_(callable(result.match))
         self.assert_(result.match("test_foo.py"))
 
     def test_failing_is_regex(self):
