@@ -149,3 +149,7 @@ class TestValidators(unittest.TestCase):
     def test_failing_is_regex(self):
         self.assertRaises(ValueError, V.is_regex, 2)
 
+    def test_regex_matches_whole_name(self):
+        result = V.is_regex(u"test.*\.py")
+        self.failIf(result.match("test_foo.py_garbage"))
+        self.failIf(result.match("garbage_test_foo.py"))

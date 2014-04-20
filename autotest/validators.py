@@ -51,7 +51,7 @@ is_dir = make_validator_from_predicate(os.path.isdir)
 is_int = make_validator_from_class(int)
 is_regex = compose(
     make_validator_from_class(unicode),
-    lambda x: re.compile(x)
+    lambda x: re.compile(x + "$")
 )
 is_str = make_validator_from_class(str)
 is_unicode = make_validator_from_class(unicode)
