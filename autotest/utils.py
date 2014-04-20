@@ -17,8 +17,13 @@ NoDefault = make_unique_named_symbol("NoDefault")
 class TypedObject(object):
 
     def __init__(self, schema):
-        self.__dict__["_values"] = {k: v[0] for k, v in schema.items()}
-        self.__dict__["_validators"] = {k: v[1] for k, v in schema.items()}
+        values = {}
+        validators = {}
+        for k, v in schema.items():
+            values[k] = v[0]
+            validators[k] = v[1]
+        self.__dict__["_values"] = values
+        self.__dict__["_validators"] = validators
 
     def __getattr__(self, name):
         if name not in self._validators:
