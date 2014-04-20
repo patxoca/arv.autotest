@@ -3,6 +3,7 @@
 # $Id$
 
 
+import re
 import unittest
 
 from autotest import validators as V
@@ -82,6 +83,25 @@ class TestIsListOf(unittest.TestCase):
         )
 
 
+class TestCompose(unittest.TestCase):
+
+    def setUp(self):
+        def increment(value):
+            return value + 1
+        def double(value):
+            return value * 2
+        self.increment = increment
+        self.double = double
+
+    def test_composition_1(self):
+        f = V.compose(self.increment, self.double)
+        self.assertEqual(f(2), 6)
+
+    def test_composition_2(self):
+        f = V.compose(self.double, self.increment)
+        self.assertEqual(f(2), 5)
+
+
 class TestValidators(unittest.TestCase):
 
     def test_passing_is_bool(self):
@@ -118,4 +138,14 @@ class TestValidators(unittest.TestCase):
 
     def test_failing_is_unicode(self):
         self.assertRaises(ValueError, V.is_unicode, 2)
+
+    def test_passing_is_regex(self):
+        regex = re.compile(".")
+        value = u"test.*\.py"
+        result = V.is_regex(value)
+        self.assert_(isinstance(result, regex.__class__))
+        self.assert_(result.match("test_foo.py"))
+
+    def test_failing_is_regex(self):
+        self.assertRaises(ValueError, V.is_regex, 2)
 

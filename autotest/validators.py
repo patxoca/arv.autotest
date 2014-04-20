@@ -4,6 +4,7 @@
 
 
 import os.path
+import re
 
 from autotest.utils import TypedObject
 
@@ -33,6 +34,12 @@ def make_validator_from_schema(schema):
         return o
     return validator
 
+def compose(*functions):
+    def validator(value):
+        for f in functions:
+            value = f(value)
+        return value
+    return validator
 
 def is_list_of(item_validator):
     def validator(value):
@@ -42,5 +49,9 @@ def is_list_of(item_validator):
 is_bool = make_validator_from_class(bool)
 is_dir = make_validator_from_predicate(os.path.isdir)
 is_int = make_validator_from_class(int)
+is_regex = compose(
+    make_validator_from_class(unicode),
+    lambda x: re.compile(x)
+)
 is_str = make_validator_from_class(str)
 is_unicode = make_validator_from_class(unicode)
