@@ -51,12 +51,12 @@ class TestMakeValidatorFromSchema(unittest.TestCase):
 
     def test_passing_validator(self):
         value = {
-            "command" : "echo 1",
+            "command" : b"echo 1",
             "verbosity" : 2
         }
         result = self.validator(value)
         self.assert_(isinstance(result, TypedObject))
-        self.assertEqual(result.command, "echo 1")
+        self.assertEqual(result.command, b"echo 1")
         self.assertEqual(result.verbosity, 2)
 
     def test_failing_validator(self):
@@ -126,7 +126,7 @@ class TestValidators(unittest.TestCase):
         self.assertRaises(ValueError, V.is_int, "2")
 
     def test_passing_is_str(self):
-        value = "2"
+        value = b"2"
         self.assertEqual(V.is_str(value), value)
 
     def test_failing_is_str(self):

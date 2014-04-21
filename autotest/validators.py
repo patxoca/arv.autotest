@@ -6,6 +6,8 @@
 import os.path
 import re
 
+import six
+
 from autotest.utils import TypedObject
 
 
@@ -43,15 +45,15 @@ def compose(*functions):
 
 def is_list_of(item_validator):
     def validator(value):
-        return map(item_validator, value)
+        return [item_validator(i) for i in value]
     return validator
 
 is_bool = make_validator_from_class(bool)
 is_dir = make_validator_from_predicate(os.path.isdir)
 is_int = make_validator_from_class(int)
+is_str = make_validator_from_class(six.binary_type)
+is_unicode = make_validator_from_class(six.text_type)
 is_regex = compose(
-    make_validator_from_class(unicode),
+    is_unicode,
     lambda x: re.compile(x + "$")
 )
-is_str = make_validator_from_class(str)
-is_unicode = make_validator_from_class(unicode)

@@ -54,7 +54,7 @@ def _parse_config(config, schema=SCHEMA):
         try:
             setattr(cfg, k, v)
         except (AttributeError, ValueError) as e:
-            raise ConfigurationError(e.message)
+            raise ConfigurationError(e.args[0])
     return cfg
 
 def read_config(path, schema=SCHEMA):
@@ -77,7 +77,7 @@ def read_config(path, schema=SCHEMA):
 
     """
     try:
-        with file(path) as f:
+        with open(path) as f:
             return _parse_config(f.read(), schema)
     except IOError:
         raise ConfigurationError("No such file: '%s'" % path)

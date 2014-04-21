@@ -2,6 +2,9 @@
 
 # $Id$
 
+import six
+if six.PY2:
+    from __future__ import print_function
 from datetime import datetime
 
 from blessings import Terminal
@@ -29,6 +32,6 @@ def react(code, output):
     stamp = "%3i " % counter + datetime.now().strftime("%H:%M:%S %d/%m/%Y")
     message = message.center(t.width - 1 - len(stamp), " ")
 
-    print output
-    print
-    print formatter(stamp + message)
+    print(output)
+    print("")
+    print(formatter(stamp + message))

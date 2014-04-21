@@ -14,8 +14,7 @@ itself.
 Installation
 ============
 
-This program has been tested only with python 2.7. It may work with
-versions 2.5 and 2.6. Probably it won't work with 3.x.
+This program has been tested with python 2.6, 2.7, 3.3 i 3.4.
 
 ::
 

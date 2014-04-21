@@ -3,7 +3,6 @@
 # $Id$
 
 import subprocess
-
 try:
     from subprocess import check_output
 except ImportError:
@@ -28,7 +27,12 @@ def run(command):
     rcode = 0
     output = ""
     try:
-        output = check_output(command, shell=True, stderr=subprocess.STDOUT)
+        output = check_output(
+            command,
+            shell=True,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True
+        )
     except subprocess.CalledProcessError as e:
         rcode = e.returncode
         output = e.output

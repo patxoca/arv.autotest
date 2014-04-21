@@ -87,7 +87,7 @@ class TestReadConfig(unittest.TestCase):
         )
 
     def test_ok(self):
-        config = """
+        config = b"""
         {
             "command" : "echo 1",
             "verbosity" : 2
