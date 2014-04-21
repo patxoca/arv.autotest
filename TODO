@@ -1,5 +1,3 @@
-* add a LICENSE file
-
 * add command line options:
 
   * -c --config : alternate config file
