@@ -72,10 +72,8 @@ class simple_event_filter_factory(object):
             return False
         container = self._get_container(path)
         if container is None:
-            # @TODO: alex 2014-04-20 17:03:44 : no hauria de passar
-            # (crec). Possiblement millor raise. Si pot passar millor
-            # fer configurable el valor retornat
-            return False
+            # should never get here
+            raise ValueError(path)
         if self._match_any(container.exclude, name):
             return False
         if self._match_any(container.include, name):
