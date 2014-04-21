@@ -129,6 +129,14 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
             ])
         self.failIf(filter(event))
 
+    def test_unwatched_directory_raises_ValueError(self):
+        parent = os.path.dirname(self.tmpdir)
+        event = make_event(parent, "exclude.abc")
+        filter = simple_event_filter_factory([
+            make_watch(self.tmpdir, include=[u".*\\.abc"])
+            ])
+        self.assertRaises(ValueError, filter, event)
+
 
 class TestFilterCombinators(unittest.TestCase):
 
