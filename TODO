@@ -1,6 +1,3 @@
-* test_filters does not check that simple_event_filter_factory returns
-  False if the event is neither excluded nor included.
-
 * in TerminalReactor: factor in its own method the construction of the
   stamp.
 

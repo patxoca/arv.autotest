@@ -122,6 +122,13 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
         )
         self.failIf(filter(event))
 
+    def test_neither_excluded_nor_included_gets_excluded_by_default(self):
+        event = make_event(self.tmpdir, "exclude.txt")
+        filter = simple_event_filter_factory([
+            make_watch(self.tmpdir, exclude=[u".*\\.abc"], include=[u".*\\.py"])
+            ])
+        self.failIf(filter(event))
+
 
 class TestFilterCombinators(unittest.TestCase):
 
