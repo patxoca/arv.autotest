@@ -1,7 +1,5 @@
-* add command line options:
-
-  * -c --config : alternate config file
-
 * display output as the subprocess generates it instead of waiting for
   completion.
 
+* in 'filters.simple_event_filter_factory': cache the precalculated
+  results in order to gain some performance.

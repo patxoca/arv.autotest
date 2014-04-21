@@ -4,6 +4,7 @@
 
 import pyinotify
 
+from autotest import cmdline
 from autotest import config
 from autotest import reactor
 from autotest import runner
@@ -34,7 +35,8 @@ class EventHandler(pyinotify.ProcessEvent):
 
 
 def main():
-    cfg = config.read_config("autotest.cfg")
+    opts = cmdline.parse()
+    cfg = config.read_config(opts.config_file)
     def callback():
         code, output = runner.run(cfg.command)
         reactor.react(code, output)
