@@ -2,6 +2,17 @@
 
 # $Id$
 
+"""A *reactor* is a class intended to consume the output produced by a
+*runner*. It must define three methods:
+
+:start(): called at the beggining.
+
+:feed(data): process a chunk of data produced by the runner.
+
+:stop(return_code): the runner has finished with ``return_code``.
+
+"""
+
 from __future__ import print_function
 from datetime import datetime
 import sys
@@ -9,29 +20,74 @@ import sys
 from blessings import Terminal
 
 
-counter = 0
+class LineAssemblerReactor(object):
+    """Assembles data into lines.
 
-def react(code, output, stdout=sys.stdout):
-    """Displays the outcome.
-
-    Displays the ``output`` variable. If ``code`` is zero (no error)
-    displays an 'OK' message on green otherwise an 'ERROR' message on
-    red.
+    The purpose of this reactor is assembling chunks of data into
+    lines and then feeding a wrapped reactor one line at a time.
 
     """
-    global counter
-    counter += 1
-    t = Terminal(stream=stdout)
-    width = t.width if t.is_tty else 80 # when testing t.width is None
-    if code:
-        formatter = t.bold_white_on_red
-        message = "ERROR"
-    else:
-        formatter = t.bold_white_on_green
-        message = "OK"
-    stamp = "%3i " % counter + datetime.now().strftime("%H:%M:%S %d/%m/%Y")
-    message = message.center(width - 1 - len(stamp), " ")
 
-    print(output, file=stdout)
-    print("", file=stdout)
-    print(formatter(stamp + message), file=stdout)
+    def __init__(self, wrapped):
+        self._wrapped = wrapped
+        self._data = []
+
+    def start(self):
+        self._wrapped.start()
+
+    def feed(self, data):
+        while "\n" in data:
+            left, data = data.split("\n", 1)
+            self._data.append(left)
+            self._data.append("\n")
+            self._feed_wrapped()
+        if data:
+            self._data.append(data)
+
+    def stop(self, code):
+        if self._data:
+            self._feed_wrapped()
+        self._wrapped.stop(code)
+
+    def _feed_wrapped(self):
+        self._wrapped.feed("".join(self._data))
+        self._data = []
+
+
+class TerminalReactor(object):
+    """Displays data to a terminal.
+
+    This reactor displays the received data into a terminal. On stop
+    displays a highlighted message: green indicates success and red
+    error.
+
+    """
+
+    def __init__(self, stdout=sys.stdout):
+        self.stdout = stdout
+        self.term = Terminal(stream=stdout)
+        self.counter = 0
+        self.width = self.term.width if self.term.is_tty else 80 # when testing t.width is None
+
+    def start(self):
+        self.counter += 1
+
+    def feed(self, line):
+        print(line, file=self.stdout, end="")
+
+    def stop(self, code):
+        if code:
+            formatter = self.term.bold_white_on_red
+            message = "ERROR"
+        else:
+            formatter = self.term.bold_white_on_green
+            message = "OK"
+        stamp = "%3i " % self.counter + datetime.now().strftime("%H:%M:%S %d/%m/%Y")
+        message = message.center(self.width - 1 - len(stamp), " ")
+
+        print("", file=self.stdout)
+        print(formatter(stamp + message), file=self.stdout)
+
+
+def make_reactor(**kwargs):
+    return LineAssemblerReactor(TerminalReactor(**kwargs))
