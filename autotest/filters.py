@@ -14,6 +14,8 @@ argument in order to decide what events we are interested in.
 
 import pyinotify
 
+from autotest import utils
+
 
 def is_delete_dir_event(event):
     """Return ``True`` if deleting a directory.
@@ -62,17 +64,21 @@ class simple_event_filter_factory(object):
         self._global_ignores = global_ignores
 
     def __call__(self, event):
-        if self._match_any(self._global_ignores, event.name):
+        return self._is_interesting(event.path, event.name)
+
+    @utils.memoize
+    def _is_interesting(self, path, name):
+        if self._match_any(self._global_ignores, name):
             return False
-        container = self._get_container(event.path)
+        container = self._get_container(path)
         if container is None:
             # @TODO: alex 2014-04-20 17:03:44 : no hauria de passar
             # (crec). Possiblement millor raise. Si pot passar millor
             # fer configurable el valor retornat
             return False
-        if self._match_any(container.exclude, event.name):
+        if self._match_any(container.exclude, name):
             return False
-        if self._match_any(container.include, event.name):
+        if self._match_any(container.include, name):
             return True
         return False
 
@@ -83,10 +89,6 @@ class simple_event_filter_factory(object):
         return None
 
     def _match_any(self, re_list, name):
-        # @TODO: alex 2014-04-20 17:32:33 : si un name es tingut en
-        # compte/ignorat una vegada ho serà sempre (segurament), no
-        # cal comprovar novament totes les re. Un mecanísme de cache
-        # ho acceleraria.
         for r in re_list:
             if r.match(name):
                 return True
