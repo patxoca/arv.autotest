@@ -28,9 +28,7 @@ class TypedObject(object):
         self.__dict__["_validators"] = validators
 
     def __getattr__(self, name):
-        if name not in self._validators:
-            raise AttributeError(name)
-        value = self._values.get(name)
+        value = self._values.get(name, NoDefault)
         if value is NoDefault:
             raise AttributeError(name)
         return value
