@@ -13,16 +13,6 @@
 
   Probably there are duplicated tests.
 
-* utils.TypedObject.__getattr__: I think that
-
-        if name not in self._validators:
-            raise AttributeError(name)
-        value = self._values.get(name)
-
-  may be replaced with:
-
-        value = self._values.get(name, NoDefault)
-
 * validators.make_validator_from_schema: according to coverage line 35
   is not executed but there is a test for a failing validation (???)
 
