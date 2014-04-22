@@ -6,9 +6,9 @@ import pyinotify
 
 from autotest import cmdline
 from autotest import config
-from autotest import reactor
+from autotest import reporters
 from autotest import runner
-from autotest import filters
+from autotest import event_filters
 
 
 class EventHandler(pyinotify.ProcessEvent):
@@ -37,15 +37,15 @@ class EventHandler(pyinotify.ProcessEvent):
 def main():
     opts = cmdline.parse()
     cfg = config.read_config(opts.config_file)
-    react = reactor.make_reactor()
+    react = reporters.make_reactor()
     def callback():
         runner.run(cfg.command, react)
     wm = pyinotify.WatchManager()
     handler = EventHandler(
         callback=callback,
-        filter=filters.and_(
-            filters.not_(filters.is_delete_dir_event),
-            filters.simple_event_filter_factory(cfg.watch, cfg.global_ignore)
+        filter=event_filters.and_(
+            event_filters.not_(event_filters.is_delete_dir_event),
+            event_filters.simple_event_filter_factory(cfg.watch, cfg.global_ignore)
         )
     )
     notifier = pyinotify.Notifier(wm, handler)

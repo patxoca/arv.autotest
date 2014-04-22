@@ -7,8 +7,8 @@ import unittest
 
 import six
 
-from autotest.reactor import LineAssemblerReactor
-from autotest.reactor import TerminalReactor
+from autotest.reporters import LineAssemblerReactor
+from autotest.reporters import TerminalReactor
 
 
 class TestTerminalReactor(unittest.TestCase):

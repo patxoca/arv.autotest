@@ -12,10 +12,10 @@ import unittest
 import pyinotify
 
 from autotest.config import watch_node_validator
-from autotest.filters import and_
-from autotest.filters import is_delete_dir_event
-from autotest.filters import not_
-from autotest.filters import simple_event_filter_factory
+from autotest.event_filters import and_
+from autotest.event_filters import is_delete_dir_event
+from autotest.event_filters import not_
+from autotest.event_filters import simple_event_filter_factory
 
 
 class Object(object):
