@@ -7,15 +7,15 @@ import unittest
 
 import six
 
-from autotest.reporters import LineAssemblerReactor
-from autotest.reporters import TerminalReactor
+from autotest.reporters import LineAssemblerReporter
+from autotest.reporters import TerminalReporter
 
 
 class TestTerminalReactor(unittest.TestCase):
 
     def setUp(self):
         self.stdout = six.StringIO()
-        self.reactor = TerminalReactor(self.stdout)
+        self.reactor = TerminalReporter(self.stdout)
 
     def tearDown(self):
         self.stdout.close()
@@ -55,7 +55,7 @@ class TestLineAssemblerReactor(unittest.TestCase):
 
     def assertReactorProduces(self, input, expected):
         wrapped = self.R()
-        reactor = LineAssemblerReactor(wrapped)
+        reactor = LineAssemblerReporter(wrapped)
         reactor.start()
         for i in input:
             reactor.feed(i)
@@ -64,14 +64,14 @@ class TestLineAssemblerReactor(unittest.TestCase):
 
     def test_preconditions(self):
         wrapped = self.R()
-        reactor = LineAssemblerReactor(wrapped)
+        reactor = LineAssemblerReporter(wrapped)
         self.failIf(wrapped.start_called)
         self.failIf(wrapped.input)
         self.assert_(wrapped.code is None)
 
     def test_delegates_to_wrapped(self):
         wrapped = self.R()
-        reactor = LineAssemblerReactor(wrapped)
+        reactor = LineAssemblerReporter(wrapped)
         reactor.start()
         reactor.feed("hello world")
         reactor.stop(123)

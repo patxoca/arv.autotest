@@ -2,8 +2,11 @@
 
 # $Id$
 
-"""A *reactor* is a class intended to consume the output produced by a
-*runner*. It must define three methods:
+"""A *reporter* is a class intended to consume the output produced by
+a *runner*. Usually a reporter will produce output for human
+consumption but it may as well act as a filter for other reporters.
+
+A reporter must define three methods:
 
 :start(): called at the beggining.
 
@@ -20,11 +23,12 @@ import sys
 from blessings import Terminal
 
 
-class LineAssemblerReactor(object):
+class LineAssemblerReporter(object):
     """Assembles data into lines.
 
-    The purpose of this reactor is assembling chunks of data into
-    lines and then feeding a wrapped reactor one line at a time.
+    The purpose of this reporter is assembling chunks of data into
+    lines and then feeding them to a wrapped reporter one line at a
+    time.
 
     """
 
@@ -54,10 +58,10 @@ class LineAssemblerReactor(object):
         self._data = []
 
 
-class TerminalReactor(object):
+class TerminalReporter(object):
     """Displays data to a terminal.
 
-    This reactor displays the received data into a terminal. On stop
+    This reporter displays the received data into a terminal. On stop
     displays a highlighted message: green indicates success and red
     error.
 
@@ -89,5 +93,5 @@ class TerminalReactor(object):
         print(formatter(stamp + message), file=self.stdout)
 
 
-def make_reactor(**kwargs):
-    return LineAssemblerReactor(TerminalReactor(**kwargs))
+def make_reporter(**kwargs):
+    return LineAssemblerReporter(TerminalReporter(**kwargs))

@@ -37,7 +37,7 @@ class EventHandler(pyinotify.ProcessEvent):
 def main():
     opts = cmdline.parse()
     cfg = config.read_config(opts.config_file)
-    react = reporters.make_reactor()
+    react = reporters.make_reporter()
     def callback():
         runner.run(cfg.command, react)
     wm = pyinotify.WatchManager()
