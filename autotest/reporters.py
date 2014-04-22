@@ -71,7 +71,7 @@ class TerminalReporter(object):
         self.stdout = stdout
         self.term = Terminal(stream=stdout)
         self.counter = 0
-        self.width = self.term.width if self.term.is_tty else 80 # when testing t.width is None
+        self.width = self.term.width if self.term.is_a_tty else 80 # when testing t.width is None
 
     def start(self):
         self.counter += 1

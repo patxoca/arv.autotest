@@ -1,9 +1,6 @@
 * in TerminalReactor: factor in its own method the construction of the
   stamp.
 
-* TerminalReactor: seem like sys.stdout is not a tty and the width is
-  always 80
-
 * config._parse_config: '_parse_config' is roughly equivalent to:
 
         _parse_config = V.make_validator_from_schema(SCHEMA)
