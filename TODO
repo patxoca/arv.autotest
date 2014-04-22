@@ -12,6 +12,3 @@
 
 * validators.make_validator_from_schema: according to coverage line 35
   is not executed but there is a test for a failing validation (???)
-
-* as the architecture evolves the original names get mealingless,
-  choose better names for modules, classes etc.
