@@ -2,6 +2,15 @@
 
 # $Id$
 
+"""Module defining validators and validator factories.
+
+A validator is any callable that receives a value and performs some
+test on it. If the validation succeeds the validator must return a
+value, either the original value or the result of some
+computation/conversion. If the check fails it raises a ``ValueError``
+exception.
+
+"""
 
 import os.path
 import re
@@ -12,6 +21,15 @@ from autotest.utils import TypedObject
 
 
 def make_validator_from_predicate(predicate):
+    """Returns a validator that succeeds if the value it receives holds
+    true according to the predicate. The return value of the validator
+    is the original value.
+
+    The predicate should be a callable that receives a value and
+    returns a boolean, ``True`` if the predicate holds true, ``False``
+    otherwise.
+
+    """
     def validator(value):
         if not predicate(value):
             raise ValueError(value)
@@ -19,6 +37,11 @@ def make_validator_from_predicate(predicate):
     return validator
 
 def make_validator_from_class(class_):
+    """Returns a validator that succedds if the value it receives is an
+    instance of the given class. The return value of the validator is
+    the original value.
+
+    """
     def validator(value):
         if not isinstance(value, class_):
             raise ValueError(value)
@@ -26,6 +49,11 @@ def make_validator_from_class(class_):
     return validator
 
 def make_validator_from_schema(schema):
+    """Returns a validator that succeeds it the dictionary it receives is
+    compliant with the schema. The return value of the validator is an
+    instance of the :py:class:`~autotest.utils.TypedObject` class.
+
+    """
     def validator(value):
         o = TypedObject(schema)
         for k, v in value.items():
@@ -37,6 +65,15 @@ def make_validator_from_schema(schema):
     return validator
 
 def compose(*functions):
+    """Returns a validator built composing the validators it receives as
+    arguments::
+
+      compose(v1, v2)(value) === v2(v1(value))
+
+    It succeeds if all validators succeed. The return value of the
+    validator is the value returned by the last validator.
+
+    """
     def validator(value):
         for f in functions:
             value = f(value)
@@ -44,6 +81,13 @@ def compose(*functions):
     return validator
 
 def is_list_of(item_validator):
+    """Returns a validator for iterables that succeeds if the validator
+    ``item_validator`` succeeds on all the items in the iterable.
+
+    The validator returns a list containing the result of validating
+    each item in the iterable.
+
+    """
     def validator(value):
         return [item_validator(i) for i in value]
     return validator
