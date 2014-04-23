@@ -93,5 +93,25 @@ class TerminalReporter(object):
         print(formatter(stamp + message), file=self.stdout)
 
 
+class NullReporter(object):
+    """Discards the input it receives.
+
+    This reporter displays a message on start and stop, ignoring the
+    input which is feed with. Useful for debuging.
+
+    """
+    def __init__(self):
+        self.term = Terminal()
+
+    def start(self):
+        print(self.term.white_on_blue("Starting null reporter."))
+
+    def feed(self, data):
+        pass
+
+    def stop(self, code):
+        print(self.term.white_on_blue("Stoping null reporter. Return code: %i" % code))
+
+
 def make_reporter(**kwargs):
     return LineAssemblerReporter(TerminalReporter(**kwargs))
