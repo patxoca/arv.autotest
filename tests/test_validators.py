@@ -102,6 +102,57 @@ class TestCompose(unittest.TestCase):
         self.assertEqual(f(2), 5)
 
 
+class TestAllValidator(unittest.TestCase):
+
+    def setUp(self):
+        self.is_even_called = False
+        self.is_big_called = False
+        def is_even(value):
+            self.is_even_called = True
+            if value % 2:
+                raise ValueError("odd")
+            return value + 1
+        def is_big(value):
+            self.is_big_called = True
+            if value < 100:
+                raise ValueError("small")
+            return value * 10
+        self.is_even = is_even
+        self.is_big = is_big
+        self.validator = V.all(is_even, is_big)
+
+    def test_preconditions(self):
+        self.failIf(self.is_even_called)
+        self.failIf(self.is_big_called)
+        self.assertEqual(self.is_even(2), 3)
+        self.assert_(self.is_even_called)
+        self.assertRaises(ValueError, self.is_even, 3)
+        self.assertEqual(self.is_big(200), 2000)
+        self.assert_(self.is_big_called)
+        self.assertRaises(ValueError, self.is_big, 2)
+
+    def test_passing(self):
+        self.assertEqual(self.validator(200), 200)
+        self.assert_(self.is_even_called)
+        self.assert_(self.is_big_called)
+
+    def test_fail_first_validator(self):
+        self.assertRaisesRegexp(
+            ValueError, "odd",
+            self.validator, 3
+        )
+        self.assert_(self.is_even_called)
+        self.failIf(self.is_big_called)
+
+    def test_fail_second_validator(self):
+        self.assertRaisesRegexp(
+            ValueError, "small",
+            self.validator, 2
+        )
+        self.assert_(self.is_even_called)
+        self.assert_(self.is_big_called)
+
+
 class TestValidators(unittest.TestCase):
 
     def test_passing_is_bool(self):
@@ -153,3 +204,12 @@ class TestValidators(unittest.TestCase):
         result = V.is_regex(u"test.*\.py")
         self.failIf(result.match("test_foo.py_garbage"))
         self.failIf(result.match("garbage_test_foo.py"))
+
+    def test_passing_is_float(self):
+        value = 1.2
+        self.assertEqual(V.is_float(value), value)
+
+    def test_failing_is_float(self):
+        self.assertRaises(ValueError, V.is_float, 2)
+        self.assertRaises(ValueError, V.is_float, "2")
+

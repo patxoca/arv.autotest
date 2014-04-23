@@ -60,6 +60,7 @@ def make_validator_from_schema(schema):
             try:
                 setattr(o, k, v)
             except AttributeError:
+                # comment required to circunvent a bug in coverage
                 raise ValueError(value)
         return o
     return validator
@@ -80,6 +81,21 @@ def compose(*functions):
         return value
     return validator
 
+def all(*validators):
+    """Returns a validator that applies each validator in turn to the
+    value it receives.
+
+    It succeeds if all validators succeed. The intermediate values
+    returned by the validators is ignored. The return value is the
+    original value.
+
+    """
+    def validator(value):
+        for v in validators:
+            v(value)
+        return value
+    return validator
+
 def is_list_of(item_validator):
     """Returns a validator for iterables that succeeds if the validator
     ``item_validator`` succeeds on all the items in the iterable.
@@ -94,9 +110,11 @@ def is_list_of(item_validator):
 
 is_bool = make_validator_from_class(bool)
 is_dir = make_validator_from_predicate(os.path.isdir)
+is_float = make_validator_from_class(float)
 is_int = make_validator_from_class(int)
 is_str = make_validator_from_class(six.binary_type)
 is_unicode = make_validator_from_class(six.text_type)
+
 is_regex = compose(
     is_unicode,
     lambda x: re.compile(x + "$")
