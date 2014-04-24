@@ -10,6 +10,7 @@ import tempfile
 import unittest
 
 import pyinotify
+import six
 
 from autotest.config import watch_node_validator
 from autotest.event_filters import and_
@@ -43,7 +44,10 @@ def make_fake_timer(start, deltas):
         for i in deltas:
             total += i
             yield total
-    return generator().next
+    if six.PY2:
+        return generator().next
+    else:
+        return generator().__next__
 
 
 class TestIsDirEvent(unittest.TestCase):
