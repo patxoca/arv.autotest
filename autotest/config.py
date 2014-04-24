@@ -39,11 +39,18 @@ WATCH_NODE_SCHEMA = {
 
 watch_node_validator = V.make_validator_from_schema(WATCH_NODE_SCHEMA)
 
+THROTTLING_SCHEMA = {
+    "max_events_second" : (1, V.is_int)
+}
+
+throttling_schema_validator = V.make_validator_from_schema(THROTTLING_SCHEMA)
+
 SCHEMA = {
     # option : (default_value, validator_or_None)
     "command" : (NoDefault, None),
     "watch" : ([], V.is_list_of(watch_node_validator)),
-    "global_ignore" : ([], V.is_list_of(V.is_regex))
+    "global_ignore" : ([], V.is_list_of(V.is_regex)),
+    "throttling" : (None, throttling_schema_validator),
 }
 
 

@@ -16,6 +16,7 @@ from autotest.event_filters import and_
 from autotest.event_filters import is_delete_dir_event
 from autotest.event_filters import not_
 from autotest.event_filters import simple_event_filter_factory
+from autotest.event_filters import throttler_factory
 
 
 class Object(object):
@@ -34,6 +35,15 @@ def make_watch(path, recurse=False, auto_add=False, include=[], exclude=[]):
         "include" : include,
         "exclude" : exclude
     })
+
+def make_fake_timer(start, deltas):
+    def generator():
+        total = start
+        yield total
+        for i in deltas:
+            total += i
+            yield total
+    return generator().next
 
 
 class TestIsDirEvent(unittest.TestCase):
@@ -165,3 +175,48 @@ class TestFilterCombinators(unittest.TestCase):
         self.failIf(f(1002))
         self.failIf(f(3))
         self.failIf(f(2))
+
+
+class TestThrottlingFilter(unittest.TestCase):
+
+    def set_up(self, deltas, start=0, count=10):
+        self.cfg = Object(max_events_second=count) # 10 events/second
+        self.timer = make_fake_timer(start, deltas)
+        self.throttler = throttler_factory(self.cfg, self.timer)
+        self.event = make_event("/tmp", "foo")
+
+    def test_fake_timer(self):
+        timer = make_fake_timer(5, [0.1, 0, 0.5])
+        self.assertEqual(timer(), 5)
+        self.assertEqual(timer(), 5.1)
+        self.assertEqual(timer(), 5.1)
+        self.assertEqual(timer(), 5.6)
+        self.assertRaises(StopIteration, timer)
+
+    def test_first_event_is_accepted(self):
+        self.set_up([])
+        self.assert_(self.throttler(self.event))
+
+    def test_event_accepted_if_delta_elapsed(self):
+        self.set_up([0.1])
+        self.throttler(self.event)
+        self.assert_(self.throttler(self.event))
+
+    def test_event_accepted_if_delta_elapsed_cummulative(self):
+        self.set_up([0.05, 0.06])
+        self.throttler(self.event)
+        self.failIf(self.throttler(self.event))
+        self.assert_(self.throttler(self.event))
+
+    def test_event_rejected_if_delta_not_elapsed(self):
+        self.set_up([0.01])
+        self.throttler(self.event)
+        self.failIf(self.throttler(self.event))
+
+    def test_None_cfg_disables_throttling(self):
+        throttler = throttler_factory(None, make_fake_timer(0, [0, 0]))
+        event = make_event("/tmp", "foo")
+        self.assert_(throttler(event)) # always accepted
+        self.assert_(throttler(event)) # two deltas
+        self.assert_(throttler(event))
+        self.assert_(throttler(event)) # timer isn't called

@@ -45,7 +45,8 @@ def main():
         callback=callback,
         filter=event_filters.and_(
             event_filters.not_(event_filters.is_delete_dir_event),
-            event_filters.simple_event_filter_factory(cfg.watch, cfg.global_ignore)
+            event_filters.simple_event_filter_factory(cfg.watch, cfg.global_ignore),
+            event_filters.throttler_factory(cfg.throttling),
         )
     )
     notifier = pyinotify.Notifier(wm, handler)

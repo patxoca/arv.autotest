@@ -12,6 +12,8 @@ argument in order to decide what events we are interested in.
 
 """
 
+import time
+
 import pyinotify
 
 from autotest import utils
@@ -91,6 +93,48 @@ class simple_event_filter_factory(object):
             if r.match(name):
                 return True
         return False
+
+
+class throttler_factory(object):
+    """Throttling filter.
+
+    This factory creates filters that discard events based on the
+    number of events per second.
+
+    The constructor expects an object with the attriutes:
+
+    :max_events_second: integer, required. Determines the maximun
+       number of events that the filter will accept in a second.
+
+    Passing ``cfg=None`` to the constructor disables throttling and
+    the filter accepts all events.
+
+    """
+    def __init__(self, cfg, timer=time.time):
+        self._timer = timer
+        if cfg:
+            self._min_time = 1.0 / cfg.max_events_second
+            self._last_time = None
+            self._disabled = False
+        else:
+            self._disabled = True
+
+    def __call__(self, event):
+        if self._disabled:
+            return True
+        now = self._timer()
+        if self._last_time is None:
+            self._last_time = now
+            return True
+        if now - self._last_time < self._min_time:
+            #print "throttling: drop event", self, event
+            return False
+        #print "throttling: accept event", self, event
+        self._last_time = now
+        return True
+
+    def __str__(self):
+        return "<throttler %5.3f %s>" % (self._min_time, self._last_time)
 
 
 def and_(*filters):
