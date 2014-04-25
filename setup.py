@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2'
+version = '0.2.1'
 
 setup(name='arv.autotest',
       version=version,
-      description="Executa tests al canviar els arxius",
+      description="Run tests whenever a file changes",
       long_description=open("README.rst").read(),
       # https://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
