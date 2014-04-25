@@ -119,6 +119,10 @@ class throttler_factory(object):
         else:
             self._disabled = True
 
+    def adjust_delta(self, delta):
+        # print "throttler.adjust_delta(%g)" % delta
+        self._min_time = delta
+
     def __call__(self, event):
         if self._disabled:
             return True

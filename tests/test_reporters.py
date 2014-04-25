@@ -5,10 +5,14 @@
 
 import unittest
 
+import mock
 import six
 
+from autotest.reporters import Repeater
+from autotest.reporters import DynamicThrottling
 from autotest.reporters import LineAssemblerReporter
 from autotest.reporters import TerminalReporter
+
 
 
 class TestTerminalReactor(unittest.TestCase):
@@ -98,3 +102,52 @@ class TestLineAssemblerReactor(unittest.TestCase):
 
     def test_chunks_with_newline(self):
         self.assertReactorProduces(["f\no", "o"], ["f\n", "oo"])
+
+
+class TestDynamicThrottlingTimer(unittest.TestCase):
+
+    def set_up(self, times):
+        self.throttler = mock.Mock()
+        self.timer = mock.Mock(side_effect=times)
+        self.reporter = DynamicThrottling(
+            self.throttler,
+            timer=self.timer
+        )
+
+    def test_something(self):
+        self.set_up([1, 2])
+        self.reporter.start()
+        self.reporter.stop(0)
+        self.throttler.adjust_delta.assert_called_once_with(1)
+
+    def test_delta_cleared_on_every_run(self):
+        self.set_up([1, 2, 4, 7])
+        self.reporter.start()
+        self.reporter.stop(0)
+        self.throttler.adjust_delta.assert_called_with(1)
+        self.reporter.start()
+        self.reporter.stop(0)
+        self.throttler.adjust_delta.assert_called_with(3)
+
+
+class TestChainReporters(unittest.TestCase):
+
+    def setUp(self):
+        self.rpt1 = mock.Mock()
+        self.rpt2 = mock.Mock()
+        self.chain = Repeater(self.rpt1, self.rpt2)
+
+    def test_start_called(self):
+        self.chain.start()
+        self.rpt1.start.assert_called_with()
+        self.rpt2.start.assert_called_with()
+
+    def test_feed_called(self):
+        self.chain.feed("some text")
+        self.rpt1.feed.assert_called_with("some text")
+        self.rpt2.feed.assert_called_with("some text")
+
+    def test_stop_called(self):
+        self.chain.stop(123)
+        self.rpt1.stop.assert_called_with(123)
+        self.rpt2.stop.assert_called_with(123)

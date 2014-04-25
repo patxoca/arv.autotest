@@ -19,6 +19,7 @@ A reporter must define three methods:
 from __future__ import print_function
 from datetime import datetime
 import sys
+import time
 
 from blessings import Terminal
 
@@ -113,5 +114,45 @@ class NullReporter(object):
         print(self.term.white_on_blue("Stoping null reporter. Return code: %i" % code))
 
 
-def make_reporter(**kwargs):
-    return LineAssemblerReporter(TerminalReporter(**kwargs))
+class DynamicThrottling(object):
+    """Dynamically adjust throttling.
+
+    This reporter measures the time required to run the program and
+    adjust the throttling rate.
+
+    """
+    def __init__(self, throttler, timer=time.time):
+        self._start = 0
+        self._throttler = throttler
+        self._timer = timer
+
+    def start(self):
+        self._start = self._timer()
+
+    def feed(self, data):
+        pass
+
+    def stop(self, code):
+        delta = self._timer() - self._start
+        if delta > 0:
+            self._throttler.adjust_delta(delta)
+
+
+class Repeater(object):
+    """Chains reporters.
+    """
+    def __init__(self, *reporters):
+        self._reporters = reporters
+
+    def start(self):
+        for reporter in self._reporters:
+            reporter.start()
+
+    def feed(self, data):
+        for reporter in self._reporters:
+            reporter.feed(data)
+
+    def stop(self, code):
+        for reporter in self._reporters:
+            reporter.stop(code)
+

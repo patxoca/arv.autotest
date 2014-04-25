@@ -11,6 +11,13 @@ from autotest import runner
 from autotest import event_filters
 
 
+def make_reporter(**kwargs):
+    return reporters.Repeater(
+        reporters.DynamicThrottling(kwargs.pop("throttler")),
+        reporters.LineAssemblerReporter(reporters.TerminalReporter(**kwargs)),
+        )
+
+
 class EventHandler(pyinotify.ProcessEvent):
     def my_init(self, callback, filter):
         self._callback = callback
@@ -37,7 +44,8 @@ class EventHandler(pyinotify.ProcessEvent):
 def main():
     opts = cmdline.parse()
     cfg = config.read_config(opts.config_file)
-    react = reporters.make_reporter()
+    throttler = event_filters.throttler_factory(cfg.throttling)
+    react = make_reporter(throttler=throttler)
     def callback():
         runner.run(cfg.command, react)
     wm = pyinotify.WatchManager()
@@ -46,7 +54,7 @@ def main():
         filter=event_filters.and_(
             event_filters.not_(event_filters.is_delete_dir_event),
             event_filters.simple_event_filter_factory(cfg.watch, cfg.global_ignore),
-            event_filters.throttler_factory(cfg.throttling),
+            throttler,
         )
     )
     notifier = pyinotify.Notifier(wm, handler)
