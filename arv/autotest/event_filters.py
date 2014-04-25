@@ -7,7 +7,7 @@
 A filter is any callable that receives a :py:class:`pyinotify.Event`
 and returns a boolean value.
 
-The :py:class:`~autotest.main.EventHandler` class takes a filter as
+The :py:class:`~arv.autotest.main.EventHandler` class takes a filter as
 argument in order to decide what events we are interested in.
 
 """
@@ -16,7 +16,7 @@ import time
 
 import pyinotify
 
-from autotest import utils
+from arv.autotest import utils
 
 
 def is_delete_dir_event(event):
@@ -37,7 +37,7 @@ class simple_event_filter_factory(object):
     The constructor accepts a list of *watches*, each one defining how
     the filter should behave with regard to events triggered within a
     folder and its subfolders. Each watch has the properties defined
-    by the :py:data:`~autotest.config.WATCH_NODE_SCHEMA` schema.
+    by the :py:data:`~arv.autotest.config.WATCH_NODE_SCHEMA` schema.
 
     * a watch can be any object providing ``getattr``-like access to
       the properties.

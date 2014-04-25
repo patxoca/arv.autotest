@@ -3,7 +3,7 @@ import sys, os
 
 version = '0.2'
 
-setup(name='autotest',
+setup(name='arv.autotest',
       version=version,
       description="Executa tests al canviar els arxius",
       long_description=open("README.rst").read(),
@@ -26,6 +26,7 @@ setup(name='autotest',
       url='',
       license='GPLv3+',
       packages=find_packages(),
+      namespace_packages=['arv'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
@@ -37,6 +38,6 @@ setup(name='autotest',
       entry_points="""
       # -*- Entry points: -*-
       [console_scripts]
-      autotest=autotest.main:main
+      autotest=arv.autotest.main:main
       """,
       )

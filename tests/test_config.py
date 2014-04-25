@@ -7,10 +7,10 @@ import os
 import tempfile
 import unittest
 
-from autotest.config import ConfigurationError
-from autotest.config import _parse_config
-from autotest.config import read_config
-from autotest.utils import NoDefault
+from arv.autotest.config import ConfigurationError
+from arv.autotest.config import _parse_config
+from arv.autotest.config import read_config
+from arv.autotest.utils import NoDefault
 
 
 

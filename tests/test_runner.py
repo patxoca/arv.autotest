@@ -5,7 +5,7 @@
 
 import unittest
 
-from autotest.runner import run
+from arv.autotest.runner import run
 
 
 class TestRunner(unittest.TestCase):

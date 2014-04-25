@@ -8,10 +8,10 @@ import unittest
 import mock
 import six
 
-from autotest.reporters import Repeater
-from autotest.reporters import DynamicThrottling
-from autotest.reporters import LineAssemblerReporter
-from autotest.reporters import TerminalReporter
+from arv.autotest.reporters import Repeater
+from arv.autotest.reporters import DynamicThrottling
+from arv.autotest.reporters import LineAssemblerReporter
+from arv.autotest.reporters import TerminalReporter
 
 
 

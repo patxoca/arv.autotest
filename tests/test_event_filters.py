@@ -12,12 +12,12 @@ import unittest
 import pyinotify
 import six
 
-from autotest.config import watch_node_validator
-from autotest.event_filters import and_
-from autotest.event_filters import is_delete_dir_event
-from autotest.event_filters import not_
-from autotest.event_filters import simple_event_filter_factory
-from autotest.event_filters import throttler_factory
+from arv.autotest.config import watch_node_validator
+from arv.autotest.event_filters import and_
+from arv.autotest.event_filters import is_delete_dir_event
+from arv.autotest.event_filters import not_
+from arv.autotest.event_filters import simple_event_filter_factory
+from arv.autotest.event_filters import throttler_factory
 
 
 class Object(object):

@@ -17,7 +17,7 @@ import re
 
 import six
 
-from autotest.utils import TypedObject
+from arv.autotest.utils import TypedObject
 
 
 def make_validator_from_predicate(predicate):
@@ -51,7 +51,7 @@ def make_validator_from_class(class_):
 def make_validator_from_schema(schema):
     """Returns a validator that succeeds it the dictionary it receives is
     compliant with the schema. The return value of the validator is an
-    instance of the :py:class:`~autotest.utils.TypedObject` class.
+    instance of the :py:class:`~arv.autotest.utils.TypedObject` class.
 
     """
     def validator(value):

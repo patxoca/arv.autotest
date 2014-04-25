@@ -10,9 +10,9 @@ if sys.version_info < (2, 7) :
 else:
     import unittest
 
-from autotest import validators as V
-from autotest.utils import NoDefault
-from autotest.utils import TypedObject
+from arv.autotest import validators as V
+from arv.autotest.utils import NoDefault
+from arv.autotest.utils import TypedObject
 
 
 class TestMakeValidatorFromPredicate(unittest.TestCase):

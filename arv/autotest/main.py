@@ -4,11 +4,11 @@
 
 import pyinotify
 
-from autotest import cmdline
-from autotest import config
-from autotest import reporters
-from autotest import runner
-from autotest import event_filters
+from arv.autotest import cmdline
+from arv.autotest import config
+from arv.autotest import reporters
+from arv.autotest import runner
+from arv.autotest import event_filters
 
 
 def make_reporter(**kwargs):

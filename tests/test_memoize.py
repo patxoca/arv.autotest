@@ -5,7 +5,7 @@
 
 import unittest
 
-from autotest.utils import memoize
+from arv.autotest.utils import memoize
 
 
 class TestMemoize(unittest.TestCase):

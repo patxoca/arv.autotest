@@ -21,9 +21,9 @@ The schema for the configuracion file:
 
 import json
 
-from autotest.utils import NoDefault
-from autotest.utils import TypedObject
-from autotest import validators as V
+from arv.autotest.utils import NoDefault
+from arv.autotest.utils import TypedObject
+from arv.autotest import validators as V
 
 
 class ConfigurationError(Exception):
