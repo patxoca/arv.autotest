@@ -71,11 +71,17 @@ class TestReadConfig(unittest.TestCase):
             "command" : (NoDefault, None),
             "verbosity": (0, is_int),
         }
+        self._files = []
+
+    def tearDown(self):
+        for f in self._files:
+            os.unlink(f)
 
     def create_config_file(self, contents):
         handle, path = tempfile.mkstemp()
         os.write(handle, contents)
         os.close(handle)
+        self._files.append(path)
         return path
 
     def test_raises_ConfigurationError_if_config_file_missing(self):

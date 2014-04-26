@@ -70,7 +70,7 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
     def setUp(self):
         self.tmpdir = tempfile.mkdtemp()
 
-    def teadDown(self):
+    def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
     def make_subdir(self, name):
