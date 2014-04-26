@@ -7,4 +7,10 @@
 
   Probably there are duplicated tests.
 
-* ensure tests clean up
+* add plugins:
+
+  * a package can declare reporters, event filters etc. using entry
+    points.
+
+  * the user specifies what reporter/filter/... to use in the config
+    file.
