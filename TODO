@@ -7,5 +7,4 @@
 
   Probably there are duplicated tests.
 
-* introduce dynamic throttling: an extra reporter wraps the external
-  program execution and gathers timings statistics.
+* ensure tests clean up

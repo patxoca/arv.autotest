@@ -134,8 +134,7 @@ class DynamicThrottling(object):
 
     def stop(self, code):
         delta = self._timer() - self._start
-        if delta > 0:
-            self._throttler.adjust_delta(delta)
+        self._throttler.adjust_delta(delta)
 
 
 class Repeater(object):

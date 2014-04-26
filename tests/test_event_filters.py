@@ -224,3 +224,10 @@ class TestThrottlingFilter(unittest.TestCase):
         self.assert_(throttler(event)) # two deltas
         self.assert_(throttler(event))
         self.assert_(throttler(event)) # timer isn't called
+
+    def test_adjust_delta(self):
+        self.set_up([0.2, 0.5])
+        self.throttler(self.event)
+        self.assert_(self.throttler(self.event))
+        self.throttler.adjust_delta(0.7)
+        self.failIf(self.throttler(self.event))
