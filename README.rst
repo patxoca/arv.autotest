@@ -32,7 +32,7 @@ to test itself::
       "global_ignore": ["\\..*"],
       "watch"  : [
           {
-              "path"    : "autotest",
+              "path"    : "arv",
               "include" : [".*\\.py"]
           },
           {
@@ -44,7 +44,7 @@ to test itself::
 
 The command specified in the ``command`` key will be executed whenever
 a change is detected in any of the watched files (the files matching
-``*.py`` within the ``autotest`` directory and those matching
+``*.py`` within the ``arv`` directory and those matching
 ``test_*.py`` in the ``tests`` directory). Files matching any of the
 ``global_ignore`` patterns (hidden files in the example) will be
 ignored.
