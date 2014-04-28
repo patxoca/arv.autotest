@@ -18,7 +18,7 @@ This program has been tested with python 2.6, 2.7, 3.3 i 3.4.
 
 ::
 
-  pip install autotest
+  pip install arv.autotest
 
 
 Configuration file
