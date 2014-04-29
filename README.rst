@@ -14,6 +14,9 @@ itself.
 Installation
 ============
 
+.. image:: https://travis-ci.org/patxoca/arv.autotest.svg?branch=master
+   :target: https://travis-ci.org/patxoca/arv.autotest
+
 This program has been tested with python 2.6, 2.7, 3.3 i 3.4.
 
 ::
