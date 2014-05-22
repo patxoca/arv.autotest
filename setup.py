@@ -28,6 +28,9 @@ setup(name='arv.autotest',
       packages=find_packages(),
       namespace_packages=['arv'],
       include_package_data=True,
+      package_data={
+          "": ["images/*.png"]
+      },
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-

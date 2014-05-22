@@ -18,6 +18,7 @@ A reporter must define three methods:
 
 from __future__ import print_function
 from datetime import datetime
+import os
 import sys
 import time
 
@@ -155,3 +156,36 @@ class Repeater(object):
         for reporter in self._reporters:
             reporter.stop(code)
 
+
+class DesktopNotifier(object):
+    """Notifies test result displaying a message in the desktop.
+
+    Requires the external command 'notify-send'.
+
+    """
+    def __init__(self):
+        self.notifier = "/usr/bin/notify-send"
+        images = os.path.join(os.path.dirname(__file__), "images")
+        self.succeed_icon = os.path.join(images, "succeed.png")
+        self.failed_icon = os.path.join(images, "failed.png")
+        if os.path.isfile(self.notifier):
+            self.enabled = True
+        else:
+            self.enabled = False
+
+    def stop(self, code):
+        if self.enabled:
+            if code:
+                result = "Tests failed!"
+                icon = self.failed_icon
+            else:
+                result = "Tests succeed!"
+                icon = self.succeed_icon
+            cmd = "killall notify-osd && %s --icon %s '%s'" % (self.notifier, icon, result)
+            os.system(cmd)
+
+    def start(self):
+        pass
+
+    def feed(self, data):
+        pass

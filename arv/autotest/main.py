@@ -15,6 +15,7 @@ def make_reporter(**kwargs):
     return reporters.Repeater(
         reporters.DynamicThrottling(kwargs.pop("throttler")),
         reporters.LineAssemblerReporter(reporters.TerminalReporter(**kwargs)),
+        reporters.DesktopNotifier(),
         )
 
 
