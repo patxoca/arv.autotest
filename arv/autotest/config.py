@@ -44,12 +44,23 @@ THROTTLING_SCHEMA = {
 
 throttling_schema_validator = V.make_validator_from_schema(THROTTLING_SCHEMA)
 
+PREPROCESSOR_ACTION_SCHEMA = {
+    "regex" : (NoDefault, V.is_regex),
+    "action": (NoDefault, V.is_unicode),
+    "params": (None, None)
+}
+
+preprocessor_action_validator = V.make_validator_from_schema(PREPROCESSOR_ACTION_SCHEMA)
+
+preprocessor_validator = V.is_list_of(preprocessor_action_validator)
+
 SCHEMA = {
     # option : (default_value, validator_or_None)
     "command" : (NoDefault, None),
     "watch" : ([], V.is_list_of(watch_node_validator)),
     "global_ignore" : ([], V.is_list_of(V.is_regex)),
     "throttling" : (None, throttling_schema_validator),
+    "preprocessor" : ([], preprocessor_validator)
 }
 
 

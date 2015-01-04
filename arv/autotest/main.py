@@ -14,9 +14,16 @@ from arv.autotest import event_filters
 
 
 def make_reporter(**kwargs):
+    throtler = kwargs.pop("throttler")
+    preprocessor_rules = kwargs.pop("preprocessor")
     return reporters.Repeater(
-        reporters.DynamicThrottling(kwargs.pop("throttler")),
-        reporters.LineAssemblerReporter(reporters.TerminalReporter(**kwargs)),
+        reporters.DynamicThrottling(throtler),
+        reporters.LineAssemblerReporter(
+            reporters.LinePreprocessorReporter(
+                preprocessor_rules,
+                reporters.TerminalReporter(**kwargs)
+            )
+        ),
         reporters.DesktopNotifier(),
         )
 
@@ -52,7 +59,7 @@ def main():
         print("%s" % e)
         return 1
     throttler = event_filters.throttler_factory(cfg.throttling)
-    react = make_reporter(throttler=throttler)
+    react = make_reporter(throttler=throttler, preprocessor=cfg.preprocessor)
     def callback():
         runner.run(cfg.command, react)
     wm = pyinotify.WatchManager()

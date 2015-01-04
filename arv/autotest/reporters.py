@@ -14,6 +14,15 @@ A reporter must define three methods:
 
 :stop(return_code): the runner has finished with ``return_code``.
 
+
+Ideally:
+
+- the Reporter interface should be redessigned in order to be able to
+  chain reporters. Currently reporters must implement that
+  funcionality themselves.
+
+- the user should be able to define those chains in the config file
+
 """
 
 from __future__ import print_function
@@ -189,3 +198,39 @@ class DesktopNotifier(object):
 
     def feed(self, data):
         pass
+
+
+class LinePreprocessorReporter(object):
+    """Preproccesses lines before displaying them.
+
+    This is a quick hack to be able to remove some lines (action
+    'ignore') and highlight others (action 'failure').
+
+    Ideally some kind of plugin architecture should be added in order
+    to extend the set of available actions.
+
+    """
+    def __init__(self, rules, wrapped):
+        self._rules = rules
+        self._wrapped = wrapped
+
+    def start(self):
+        self._wrapped.start()
+
+    def stop(self, code):
+        self._wrapped.stop(code)
+
+    def feed(self, line):
+        for rule in self._rules:
+            if rule.regex.match(line):
+                line = self._process(line, rule.action, rule.params)
+                break
+        if line is not None:
+            self._wrapped.feed(line)
+
+    def _process(self, line, action, args):
+        if action == "ignore":
+            return None
+        if action == "failure":
+            return "\033[31m%s\033[0m" % line
+        return line
