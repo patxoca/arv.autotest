@@ -59,8 +59,11 @@ def make_validator_from_schema(schema, factory=Bunch):
     instance of the :py:class:`~arv.autotest.validators.Bunch` class.
 
     """
-    values = {k:v[0] for k, v in schema.items()}
-    validators = {k:v[1] for k, v in schema.items()}
+    values = {}
+    validators = {}
+    for k, v in schema.items():
+        values[k] = v[0]
+        validators[k] = v[1]
 
     def validator(value):
         attrs = {}
