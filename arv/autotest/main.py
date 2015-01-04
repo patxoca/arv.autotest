@@ -67,5 +67,3 @@ def main():
             auto_add=watch.auto_add
         )
     notifier.loop()
-
-main()
