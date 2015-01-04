@@ -17,7 +17,8 @@ import re
 
 import six
 
-from arv.autotest.utils import TypedObject
+from arv.autotest.utils import Bunch
+from arv.autotest.utils import NoDefault
 
 
 def make_validator_from_predicate(predicate):
@@ -52,21 +53,36 @@ def make_validator_from_class(class_):
         return value
     return validator
 
-def make_validator_from_schema(schema):
+def make_validator_from_schema(schema, factory=Bunch):
     """Returns a validator that succeeds it the dictionary it receives is
     compliant with the schema. The return value of the validator is an
-    instance of the :py:class:`~arv.autotest.utils.TypedObject` class.
+    instance of the :py:class:`~arv.autotest.validators.Bunch` class.
 
     """
+    values = {k:v[0] for k, v in schema.items()}
+    validators = {k:v[1] for k, v in schema.items()}
+
     def validator(value):
-        o = TypedObject(schema)
-        for k, v in value.items():
-            try:
-                setattr(o, k, v)
-            except AttributeError:
-                # comment required to circunvent a bug in coverage
-                raise ValueError(value)
-        return o
+        attrs = {}
+        unknown_attrs = set(value.keys()).difference(validators.keys())
+        if unknown_attrs:
+            raise ValueError(
+                "The following options are unknown: %s" % ", ".join(
+                    ["'%s'" for i in unknown_attrs]
+                )
+            )
+        for k, v in validators.items():
+            val = value.get(k, values[k])
+            if val is NoDefault:
+                raise ValueError("Missing required value for '%s'." % k)
+            if callable(validators[k]):
+                try:
+                    val = validators[k](val)
+                except ValueError:
+                    # comment required to circunvent a bug in coverage
+                    raise ValueError("Validation failed for '%s' = '%s'." % (k, val))
+            attrs[k] = val
+        return factory(attrs)
     return validator
 
 def compose(*functions):

@@ -16,33 +16,9 @@ def make_unique_named_symbol(name):
 NoDefault = make_unique_named_symbol("NoDefault")
 
 
-class TypedObject(object):
-
-    def __init__(self, schema):
-        values = {}
-        validators = {}
-        for k, v in schema.items():
-            values[k] = v[0]
-            validators[k] = v[1]
-        self.__dict__["_values"] = values
-        self.__dict__["_validators"] = validators
-
-    def __getattr__(self, name):
-        value = self._values.get(name, NoDefault)
-        if value is NoDefault:
-            raise AttributeError(name)
-        return value
-
-    def __setattr__(self, name, value):
-        if name not in self._validators:
-            raise AttributeError(name)
-        validator = self._validators[name]
-        if callable(validator):
-            try:
-                value = validator(value)
-            except ValueError:
-                raise ValueError("Wrong value '%s' for option '%s'" % (value, name))
-        self._values[name] = value
+class Bunch(object):
+    def __init__(self, attrs):
+        self.__dict__.update(attrs)
 
 
 def memoize(f):

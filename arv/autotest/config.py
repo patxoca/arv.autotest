@@ -81,7 +81,7 @@ def read_config(path, schema=SCHEMA):
     :raises: ConfigurationError if the file does not exist or it is
              not a valid configuration file.
     :returns: an object with each option stored in an attribute
-    :rtype: TypedObject
+    :rtype: Bunch
 
     """
     try:

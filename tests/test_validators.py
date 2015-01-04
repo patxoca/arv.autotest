@@ -12,7 +12,6 @@ else:
 
 from arv.autotest import validators as V
 from arv.autotest.utils import NoDefault
-from arv.autotest.utils import TypedObject
 
 
 class TestMakeValidatorFromPredicate(unittest.TestCase):
@@ -50,23 +49,65 @@ class TestMakeValidatorFromSchema(unittest.TestCase):
         self.schema = {
             "command": (NoDefault, V.is_str),
             "verbosity": (0, V.is_int),
+            "warp": (33, None)
         }
         self.validator = V.make_validator_from_schema(self.schema)
 
     def test_passing_validator(self):
         value = {
             "command" : b"echo 1",
+            "verbosity" : 2,
+            "warp": 11
+        }
+        result = self.validator(value)
+        self.assertEqual(result.command, b"echo 1")
+        self.assertEqual(result.verbosity, 2)
+        self.assertEqual(result.warp, 11)
+
+    def test_validation_adds_default_value_for_missing_option(self):
+        value = {
+            "command" : b"echo 1",
             "verbosity" : 2
         }
         result = self.validator(value)
-        self.assert_(isinstance(result, TypedObject))
-        self.assertEqual(result.command, b"echo 1")
-        self.assertEqual(result.verbosity, 2)
+        self.assertEqual(result.warp, 33)
 
-    def test_failing_validator(self):
+    def test_object_factory_defaults_to_Bunch(self):
+        value = {
+            "command" : b"echo 1",
+            "verbosity" : 2
+        }
+        validator = V.make_validator_from_schema(self.schema)
+        result = validator(value)
+        self.assert_(isinstance(result, V.Bunch))
+
+    def test_validator_honours_object_factory(self):
+        value = {
+            "command" : b"echo 1",
+            "verbosity" : 2
+        }
+        validator = V.make_validator_from_schema(self.schema, factory=dict)
+        result = validator(value)
+        self.assert_(isinstance(result, dict))
+
+    def test_validation_fails_for_missing_required_option(self):
         value = {
             "command" : None,
             "verbosity" : 2
+        }
+        self.assertRaises(ValueError, self.validator, value)
+
+    def test_validation_fails_for_unknown_option(self):
+        value = {
+            "command" : b"echo 1",
+            "the_answer_to_the_ultimate_question" : 42
+        }
+        self.assertRaises(ValueError, self.validator, value)
+
+    def test_validation_fails_for_wrong_type(self):
+        value = {
+            "command" : b"echo 1",
+            "verbosity": b"foo"
         }
         self.assertRaises(ValueError, self.validator, value)
 
@@ -216,4 +257,3 @@ class TestValidators(unittest.TestCase):
     def test_failing_is_float(self):
         self.assertRaises(ValueError, V.is_float, 2)
         self.assertRaises(ValueError, V.is_float, "2")
-
