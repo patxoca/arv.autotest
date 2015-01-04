@@ -24,6 +24,29 @@ This program has been tested with python 2.6, 2.7, 3.3 i 3.4.
   pip install arv.autotest
 
 
+Internals overview
+==================
+
+- monitor sets files/directories for changes (``pynotify``)
+
+- decide what events are processed (``event_filters.py``). The filters
+  can drop events by type, because the events are coming to fast etc.
+  Throtling is implemented here.
+
+- execute a command in response (``runner.py``)
+
+- process the output from the command (``reporters``).
+
+  - display the output on screen
+
+  - display a notification on completion
+
+  - there exist a proof of concept preprocessor that can modify the
+    output (ignore and highlight lines).
+
+  - adjust throtling dynamically
+
+
 Configuration file
 ==================
 
@@ -84,6 +107,10 @@ Top level options:
                 (not path) matches any regex the events related to
                 that file are ignored.
 
+:throttling: See below.
+
+:peprocessor: A list of directives. See below.
+
 Watch options:
 
 :path: string, required. Path of the directory.
@@ -97,6 +124,22 @@ Watch options:
 :include: list of regexes (strings). Regexes matching included files.
 
 :exclude: list of regexes (strings). Regexes matching excluded files.
+
+Preprocessor options:
+
+:regex: regular expression. If the regex matches the **whole** line
+        the corresponding action i executed.
+
+:action: action identifier. Currently two actions are defined:
+
+         - ``ignore``: remove the line from the output
+
+         - ``failure``: highlight the line in red
+
+Throttling options:
+
+:max_events_second: limit the maximum number of events that will be
+                    processed per second.
 
 
 Notes on regexes
