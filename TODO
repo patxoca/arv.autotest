@@ -1,12 +1,6 @@
 * in TerminalReactor: factor in its own method the construction of the
   stamp.
 
-* config._parse_config: '_parse_config' is roughly equivalent to:
-
-        _parse_config = V.make_validator_from_schema(SCHEMA)
-
-  Probably there are duplicated tests.
-
 * add plugins:
 
   * a package can declare reporters, event filters etc. using entry
@@ -14,3 +8,6 @@
 
   * the user specifies what reporter/filter/... to use in the config
     file.
+
+* add optional 'command' to watches: use case, if a 'test_*.py' file
+  changes run only tests on that file, otherwise run all tests.
