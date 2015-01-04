@@ -22,7 +22,6 @@ The schema for the configuracion file:
 import json
 
 from arv.autotest.utils import NoDefault
-from arv.autotest.utils import TypedObject
 from arv.autotest import validators as V
 
 
@@ -59,12 +58,11 @@ def _parse_config(config, schema=SCHEMA):
         options = json.loads(config)
     except ValueError as e:
         raise ConfigurationError("Error parsing config file: %s" % e)
-    cfg = TypedObject(schema)
-    for k, v in options.items():
-        try:
-            setattr(cfg, k, v)
-        except (AttributeError, ValueError) as e:
-            raise ConfigurationError("Error validating config file: %s " % e)
+    validator = V.make_validator_from_schema(schema)
+    try:
+        cfg = validator(options)
+    except ValueError as e:
+        raise ConfigurationError("Error validating config file: %s " % e)
     return cfg
 
 def read_config(path, schema=SCHEMA):

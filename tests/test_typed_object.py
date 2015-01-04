@@ -5,8 +5,8 @@
 
 import unittest
 
-from arv.autotest.config import NoDefault
-from arv.autotest.config import TypedObject
+from arv.autotest.utils import NoDefault
+from arv.autotest.utils import TypedObject
 
 def is_int(value):
     if not isinstance(value, int):
