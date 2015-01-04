@@ -2,6 +2,8 @@
 
 # $Id$
 
+from __future__ import print_function
+
 import pyinotify
 
 from arv.autotest import cmdline
@@ -44,7 +46,11 @@ class EventHandler(pyinotify.ProcessEvent):
 
 def main():
     opts = cmdline.parse()
-    cfg = config.read_config(opts.config_file)
+    try:
+        cfg = config.read_config(opts.config_file)
+    except config.ConfigurationError as e:
+        print("%s" % e)
+        return 1
     throttler = event_filters.throttler_factory(cfg.throttling)
     react = make_reporter(throttler=throttler)
     def callback():

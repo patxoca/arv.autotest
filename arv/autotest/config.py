@@ -55,13 +55,16 @@ SCHEMA = {
 
 
 def _parse_config(config, schema=SCHEMA):
-    options = json.loads(config)
+    try:
+        options = json.loads(config)
+    except ValueError as e:
+        raise ConfigurationError("Error parsing config file: %s" % e)
     cfg = TypedObject(schema)
     for k, v in options.items():
         try:
             setattr(cfg, k, v)
         except (AttributeError, ValueError) as e:
-            raise ConfigurationError(e.args[0])
+            raise ConfigurationError("Error validating config file: %s " % e)
     return cfg
 
 def read_config(path, schema=SCHEMA):
