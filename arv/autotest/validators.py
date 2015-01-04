@@ -31,7 +31,11 @@ def make_validator_from_predicate(predicate):
 
     """
     def validator(value):
-        if not predicate(value):
+        try:
+            res = predicate(value)
+        except Exception as e:
+            raise ValueError(str(e))
+        if not res:
             raise ValueError(value)
         return value
     return validator
