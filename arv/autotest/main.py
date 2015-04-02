@@ -79,4 +79,8 @@ def main():
             rec=watch.recurse,
             auto_add=watch.auto_add
         )
+
+    # force a test run on startup
+    callback()
+
     notifier.loop()
