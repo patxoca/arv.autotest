@@ -1,0 +1,5 @@
+recursive-include tests *
+include autotest.cfg
+include LICENSE
+include requirements.txt
+include tox.ini
