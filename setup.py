@@ -34,9 +34,9 @@ setup(name='arv.autotest',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
-          "blessings>=1.5.1",
-          "pyinotify>=0.9.4",
-          "six>=1.6.1",
+          "blessings",
+          "pyinotify",
+          "six",
       ],
       entry_points="""
       # -*- Entry points: -*-
