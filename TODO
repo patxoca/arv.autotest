@@ -11,3 +11,41 @@
 
 * add optional 'command' to watches: use case, if a 'test_*.py' file
   changes run only tests on that file, otherwise run all tests.
+
+* seems like throting does not work properly. Use case:
+
+  - rename function with rope's C-r r, that afects many modules. Rope
+    modifies and saves the modules. That takes less than a second.
+
+  - autotets runs the tests as many times as modules are modified.
+
+* ERROR: running autotest on 'detectar_imports.py' raises an error:
+
+  - is a toy project, tests are in the same directory a code
+
+  - changing the test code raises an error:
+
+    Traceback (most recent call last):
+      File "/home/alex/local/bin/autotest", line 9, in <module>
+        load_entry_point('arv.autotest==0.2.5', 'console_scripts', 'autotest')()
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/main.py", line 86, in main
+        notifier.loop()
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 1424, in loop
+        self.process_events()
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 1321, in process_events
+        self._default_proc_fun(revent)
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 960, in __call__
+        return _ProcessEvent.__call__(self, event)
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 680, in __call__
+        return meth(event)
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/main.py", line 49, in process_IN_CLOSE_WRITE
+        if not self._filter(event):
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 149, in filter
+        if not f(event):
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 69, in __call__
+        return self._is_interesting(event.path, event.name)
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/utils.py", line 29, in wrapper
+        f.__memoize_cache__[args] = f(*args)
+      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 78, in _is_interesting
+        raise ValueError(path)
+    ValueError: __pycache__
