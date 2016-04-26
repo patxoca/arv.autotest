@@ -190,7 +190,7 @@ class DesktopNotifier(object):
             else:
                 result = "Tests succeed!"
                 icon = self.succeed_icon
-            cmd = "killall notify-osd && %s --icon %s '%s'" % (self.notifier, icon, result)
+            cmd = "killall notify-osd ; %s --icon %s '%s'" % (self.notifier, icon, result)
             os.system(cmd)
 
     def start(self):
