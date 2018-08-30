@@ -3,6 +3,7 @@
 # $Id$
 
 from __future__ import print_function
+from __future__ import unicode_literals
 
 import pyinotify
 
@@ -38,7 +39,7 @@ class EventHandler(pyinotify.ProcessEvent):
     # catch all events
 
     # def process_default(self, event):
-    #     print str(event)
+    #     print(str(event))
 
     def process_IN_DELETE(self, event):
         if not self._filter(event):

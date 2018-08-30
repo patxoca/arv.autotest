@@ -19,6 +19,8 @@ The schema for the configuracion file:
 
 """
 
+from __future__ import unicode_literals
+
 import json
 
 from arv.autotest.utils import NoDefault

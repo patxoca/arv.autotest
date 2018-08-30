@@ -26,6 +26,9 @@ Ideally:
 """
 
 from __future__ import print_function
+from __future__ import unicode_literals
+from builtins import object
+
 from datetime import datetime
 import os
 import sys

@@ -2,6 +2,7 @@
 
 # $Id$
 
+from __future__ import unicode_literals
 
 import optparse  # required for 2.6 compatibility
 

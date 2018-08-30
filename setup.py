@@ -34,6 +34,7 @@ setup(name='arv.autotest',
       install_requires=[
           # -*- Extra requirements: -*-
           "blessings",
+          "future",
           "pyinotify",
           "six",
       ],

@@ -12,6 +12,9 @@ argument in order to decide what events we are interested in.
 
 """
 
+from __future__ import unicode_literals
+from builtins import object
+
 import time
 
 import pyinotify
