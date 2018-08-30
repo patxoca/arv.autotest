@@ -4,8 +4,12 @@
 
 
 import unittest
+from future.utils import PY3
 
-import mock
+if PY3:
+    from unittest import mock
+else:
+    import mock
 import six
 
 from arv.autotest.reporters import Repeater
