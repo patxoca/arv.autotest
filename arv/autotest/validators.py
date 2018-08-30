@@ -41,6 +41,7 @@ def make_validator_from_predicate(predicate):
         return value
     return validator
 
+
 def make_validator_from_class(class_):
     """Returns a validator that succedds if the value it receives is an
     instance of the given class. The return value of the validator is
@@ -52,6 +53,7 @@ def make_validator_from_class(class_):
             raise ValueError(value)
         return value
     return validator
+
 
 def make_validator_from_schema(schema, factory=Bunch):
     """Returns a validator that succeeds it the dictionary it receives is
@@ -88,6 +90,7 @@ def make_validator_from_schema(schema, factory=Bunch):
         return factory(attrs)
     return validator
 
+
 def compose(*functions):
     """Returns a validator built composing the validators it receives as
     arguments::
@@ -104,6 +107,7 @@ def compose(*functions):
         return value
     return validator
 
+
 def all(*validators):
     """Returns a validator that applies each validator in turn to the
     value it receives.
@@ -119,6 +123,7 @@ def all(*validators):
         return value
     return validator
 
+
 def is_list_of(item_validator):
     """Returns a validator for iterables that succeeds if the validator
     ``item_validator`` succeeds on all the items in the iterable.
@@ -130,6 +135,7 @@ def is_list_of(item_validator):
     def validator(value):
         return [item_validator(i) for i in value]
     return validator
+
 
 is_bool = make_validator_from_class(bool)
 is_dir = make_validator_from_predicate(os.path.isdir)

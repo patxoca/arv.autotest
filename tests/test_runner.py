@@ -15,12 +15,16 @@ class TestRunner(unittest.TestCase):
             def __init__(self):
                 self.input = []
                 self.code = None
+
             def start(self):
                 pass
+
             def feed(self, data):
                 self.input.append(data)
+
             def stop(self, code):
                 self.code = code
+
         self.reactor = R()
 
     def test_exit_code_0(self):
@@ -32,4 +36,3 @@ class TestRunner(unittest.TestCase):
         run("echo 'hello' && exit 1", self.reactor)
         self.assertEqual(self.reactor.code, 1)
         self.assertEqual(b"".join(self.reactor.input), b"hello\n")
-

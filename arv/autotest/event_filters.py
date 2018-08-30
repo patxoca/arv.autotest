@@ -26,7 +26,7 @@ def is_delete_dir_event(event):
     mask = event.mask
     return bool(
         (mask & P.IN_DELETE) and (mask & (P.IN_DELETE_SELF | P.IN_ISDIR))
-        )
+    )
 
 
 class simple_event_filter_factory(object):
@@ -61,7 +61,7 @@ class simple_event_filter_factory(object):
         w = list(watches)
         # sort the watches by descending path length to make sure that
         # watches on subdirs are processed before its parents
-        w.sort(key=lambda x : -len(x.path))
+        w.sort(key=lambda x: -len(x.path))
         self._watches = w
         self._global_ignores = global_ignores
 
@@ -150,6 +150,7 @@ def and_(*filters):
                 return False
         return True
     return filter
+
 
 def not_(filter):
     """Factory *negating* a filter.

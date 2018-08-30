@@ -28,8 +28,9 @@ from arv.autotest import validators as V
 class ConfigurationError(Exception):
     pass
 
+
 WATCH_NODE_SCHEMA = {
-    "path" : (NoDefault, V.is_dir),
+    "path": (NoDefault, V.is_dir),
     "recurse": (True, V.is_bool),
     "auto_add": (True, V.is_bool),
     "include": ([], V.is_list_of(V.is_regex)),
@@ -39,13 +40,13 @@ WATCH_NODE_SCHEMA = {
 watch_node_validator = V.make_validator_from_schema(WATCH_NODE_SCHEMA)
 
 THROTTLING_SCHEMA = {
-    "max_events_second" : (1, V.is_int)
+    "max_events_second": (1, V.is_int)
 }
 
 throttling_schema_validator = V.make_validator_from_schema(THROTTLING_SCHEMA)
 
 PREPROCESSOR_ACTION_SCHEMA = {
-    "regex" : (NoDefault, V.is_regex),
+    "regex": (NoDefault, V.is_regex),
     "action": (NoDefault, V.is_unicode),
     "params": (None, None)
 }
@@ -56,11 +57,11 @@ preprocessor_validator = V.is_list_of(preprocessor_action_validator)
 
 SCHEMA = {
     # option : (default_value, validator_or_None)
-    "command" : (NoDefault, None),
-    "watch" : ([], V.is_list_of(watch_node_validator)),
-    "global_ignore" : ([], V.is_list_of(V.is_regex)),
-    "throttling" : (None, throttling_schema_validator),
-    "preprocessor" : ([], preprocessor_validator)
+    "command": (NoDefault, None),
+    "watch": ([], V.is_list_of(watch_node_validator)),
+    "global_ignore": ([], V.is_list_of(V.is_regex)),
+    "throttling": (None, throttling_schema_validator),
+    "preprocessor": ([], preprocessor_validator)
 }
 
 
@@ -75,6 +76,7 @@ def _parse_config(config, schema=SCHEMA):
     except ValueError as e:
         raise ConfigurationError("Error validating config file: %s " % e)
     return cfg
+
 
 def read_config(path, schema=SCHEMA):
     """Read the configuracion from a file.

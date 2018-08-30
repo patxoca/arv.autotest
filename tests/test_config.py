@@ -13,7 +13,6 @@ from arv.autotest.config import read_config
 from arv.autotest.utils import NoDefault
 
 
-
 def is_int(value):
     if not isinstance(value, int):
         raise ValueError()
@@ -24,7 +23,7 @@ class TestParseConfig(unittest.TestCase):
 
     def setUp(self):
         self.SCHEMA = {
-            "command" : (NoDefault, None),
+            "command": (NoDefault, None),
             "verbosity": (0, is_int),
         }
 
@@ -68,7 +67,7 @@ class TestReadConfig(unittest.TestCase):
 
     def setUp(self):
         self.SCHEMA = {
-            "command" : (NoDefault, None),
+            "command": (NoDefault, None),
             "verbosity": (0, is_int),
         }
         self._files = []

@@ -14,7 +14,6 @@ from arv.autotest.reporters import LineAssemblerReporter
 from arv.autotest.reporters import TerminalReporter
 
 
-
 class TestTerminalReactor(unittest.TestCase):
 
     def setUp(self):
@@ -49,10 +48,13 @@ class TestLineAssemblerReactor(unittest.TestCase):
                 self.start_called = False
                 self.input = []
                 self.code = None
+
             def start(self):
                 self.start_called = True
+
             def feed(self, data):
                 self.input.append(data)
+
             def stop(self, code):
                 self.code = code
         self.R = R

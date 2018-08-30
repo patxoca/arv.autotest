@@ -22,5 +22,3 @@ def run(command, reactor):
         reactor.feed(data)
         data = os.read(fd, 1)
     reactor.stop(proc.wait())
-
-
