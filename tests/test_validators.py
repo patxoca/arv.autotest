@@ -4,11 +4,7 @@
 
 from __future__ import unicode_literals
 
-import sys
-if sys.version_info < (2, 7):
-    import unittest2 as unittest
-else:
-    import unittest
+import unittest
 
 from arv.autotest import validators as V
 from arv.autotest.utils import NoDefault
