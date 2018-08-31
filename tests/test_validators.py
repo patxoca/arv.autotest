@@ -2,13 +2,9 @@
 
 # $Id$
 
+from __future__ import unicode_literals
 
-import re
-import sys
-if sys.version_info < (2, 7) :
-    import unittest2 as unittest
-else:
-    import unittest
+import unittest
 
 from arv.autotest import validators as V
 from arv.autotest.utils import NoDefault
@@ -55,8 +51,8 @@ class TestMakeValidatorFromSchema(unittest.TestCase):
 
     def test_passing_validator(self):
         value = {
-            "command" : b"echo 1",
-            "verbosity" : 2,
+            "command": b"echo 1",
+            "verbosity": 2,
             "warp": 11
         }
         result = self.validator(value)
@@ -66,16 +62,16 @@ class TestMakeValidatorFromSchema(unittest.TestCase):
 
     def test_validation_adds_default_value_for_missing_option(self):
         value = {
-            "command" : b"echo 1",
-            "verbosity" : 2
+            "command": b"echo 1",
+            "verbosity": 2
         }
         result = self.validator(value)
         self.assertEqual(result.warp, 33)
 
     def test_object_factory_defaults_to_Bunch(self):
         value = {
-            "command" : b"echo 1",
-            "verbosity" : 2
+            "command": b"echo 1",
+            "verbosity": 2
         }
         validator = V.make_validator_from_schema(self.schema)
         result = validator(value)
@@ -83,8 +79,8 @@ class TestMakeValidatorFromSchema(unittest.TestCase):
 
     def test_validator_honours_object_factory(self):
         value = {
-            "command" : b"echo 1",
-            "verbosity" : 2
+            "command": b"echo 1",
+            "verbosity": 2
         }
         validator = V.make_validator_from_schema(self.schema, factory=dict)
         result = validator(value)
@@ -92,21 +88,21 @@ class TestMakeValidatorFromSchema(unittest.TestCase):
 
     def test_validation_fails_for_missing_required_option(self):
         value = {
-            "command" : None,
-            "verbosity" : 2
+            "command": None,
+            "verbosity": 2
         }
         self.assertRaises(ValueError, self.validator, value)
 
     def test_validation_fails_for_unknown_option(self):
         value = {
-            "command" : b"echo 1",
-            "the_answer_to_the_ultimate_question" : 42
+            "command": b"echo 1",
+            "the_answer_to_the_ultimate_question": 42
         }
         self.assertRaises(ValueError, self.validator, value)
 
     def test_validation_fails_for_wrong_type(self):
         value = {
-            "command" : b"echo 1",
+            "command": b"echo 1",
             "verbosity": b"foo"
         }
         self.assertRaises(ValueError, self.validator, value)
@@ -133,8 +129,10 @@ class TestCompose(unittest.TestCase):
     def setUp(self):
         def increment(value):
             return value + 1
+
         def double(value):
             return value * 2
+
         self.increment = increment
         self.double = double
 
@@ -152,16 +150,19 @@ class TestAllValidator(unittest.TestCase):
     def setUp(self):
         self.is_even_called = False
         self.is_big_called = False
+
         def is_even(value):
             self.is_even_called = True
             if value % 2:
                 raise ValueError("odd")
             return value + 1
+
         def is_big(value):
             self.is_big_called = True
             if value < 100:
                 raise ValueError("small")
             return value * 10
+
         self.is_even = is_even
         self.is_big = is_big
         self.validator = V.all(is_even, is_big)

@@ -2,6 +2,9 @@
 
 # $Id$
 
+from __future__ import unicode_literals
+from builtins import object
+from future.utils import PY2
 
 import os
 import re
@@ -10,7 +13,6 @@ import tempfile
 import unittest
 
 import pyinotify
-import six
 
 from arv.autotest.config import watch_node_validator
 from arv.autotest.event_filters import and_
@@ -28,14 +30,16 @@ class Object(object):
 def make_event(path, name, mask=0):
     return Object(path=path, name=name, mask=mask)
 
+
 def make_watch(path, recurse=False, auto_add=False, include=[], exclude=[]):
     return watch_node_validator({
-        "path" : path,
-        "recurse" : recurse,
-        "auto_add" : auto_add,
-        "include" : include,
-        "exclude" : exclude
+        "path": path,
+        "recurse": recurse,
+        "auto_add": auto_add,
+        "include": include,
+        "exclude": exclude
     })
+
 
 def make_fake_timer(start, deltas):
     def generator():
@@ -44,7 +48,7 @@ def make_fake_timer(start, deltas):
         for i in deltas:
             total += i
             yield total
-    if six.PY2:
+    if PY2:
         return generator().next
     else:
         return generator().__next__
@@ -112,8 +116,8 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
         subdir = self.make_subdir("subdir")
         event = make_event(subdir, "exclude.abc")
         filter = simple_event_filter_factory([
-            make_watch(self.tmpdir, include=[u".*\\.abc"]), # /tmp
-            make_watch(subdir, exclude=[u".*\\.abc"]),      # /tmp/subdir
+            make_watch(self.tmpdir, include=[u".*\\.abc"]),  # /tmp
+            make_watch(subdir, exclude=[u".*\\.abc"]),       # /tmp/subdir
         ])
         self.failIf(filter(event))
 
@@ -121,8 +125,8 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
         subdir = self.make_subdir("subdir")
         event = make_event(subdir, "exclude.abc")
         filter = simple_event_filter_factory([
-            make_watch(self.tmpdir, exclude=[u".*\\.abc"]), # /tmp
-            make_watch(subdir, include=[u".*\\.abc"]),      # /tmp/subdir
+            make_watch(self.tmpdir, exclude=[u".*\\.abc"]),  # /tmp
+            make_watch(subdir, include=[u".*\\.abc"]),       # /tmp/subdir
         ])
         self.assert_(filter(event))
 
@@ -140,7 +144,7 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
         event = make_event(self.tmpdir, "exclude.txt")
         filter = simple_event_filter_factory([
             make_watch(self.tmpdir, exclude=[u".*\\.abc"], include=[u".*\\.py"])
-            ])
+        ])
         self.failIf(filter(event))
 
     def test_unwatched_directory_raises_ValueError(self):
@@ -148,7 +152,7 @@ class TestSimpleEventFilterFactory(unittest.TestCase):
         event = make_event(parent, "exclude.abc")
         filter = simple_event_filter_factory([
             make_watch(self.tmpdir, include=[u".*\\.abc"])
-            ])
+        ])
         self.assertRaises(ValueError, filter, event)
 
 
@@ -157,8 +161,10 @@ class TestFilterCombinators(unittest.TestCase):
     def setUp(self):
         def is_odd(value):
             return bool(value % 2)
+
         def is_big(value):
             return value > 100
+
         self.is_odd = is_odd
         self.is_big = is_big
 
@@ -184,7 +190,7 @@ class TestFilterCombinators(unittest.TestCase):
 class TestThrottlingFilter(unittest.TestCase):
 
     def set_up(self, deltas, start=0, count=10):
-        self.cfg = Object(max_events_second=count) # 10 events/second
+        self.cfg = Object(max_events_second=count)  # 10 events/second
         self.timer = make_fake_timer(start, deltas)
         self.throttler = throttler_factory(self.cfg, self.timer)
         self.event = make_event("/tmp", "foo")
@@ -220,10 +226,10 @@ class TestThrottlingFilter(unittest.TestCase):
     def test_None_cfg_disables_throttling(self):
         throttler = throttler_factory(None, make_fake_timer(0, [0, 0]))
         event = make_event("/tmp", "foo")
-        self.assert_(throttler(event)) # always accepted
-        self.assert_(throttler(event)) # two deltas
+        self.assert_(throttler(event))  # always accepted
+        self.assert_(throttler(event))  # two deltas
         self.assert_(throttler(event))
-        self.assert_(throttler(event)) # timer isn't called
+        self.assert_(throttler(event))  # timer isn't called
 
     def test_adjust_delta(self):
         self.set_up([0.2, 0.5])

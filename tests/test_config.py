@@ -2,6 +2,7 @@
 
 # $Id$
 
+from __future__ import unicode_literals
 
 import os
 import tempfile
@@ -11,7 +12,6 @@ from arv.autotest.config import ConfigurationError
 from arv.autotest.config import _parse_config
 from arv.autotest.config import read_config
 from arv.autotest.utils import NoDefault
-
 
 
 def is_int(value):
@@ -24,7 +24,7 @@ class TestParseConfig(unittest.TestCase):
 
     def setUp(self):
         self.SCHEMA = {
-            "command" : (NoDefault, None),
+            "command": (NoDefault, None),
             "verbosity": (0, is_int),
         }
 
@@ -68,7 +68,7 @@ class TestReadConfig(unittest.TestCase):
 
     def setUp(self):
         self.SCHEMA = {
-            "command" : (NoDefault, None),
+            "command": (NoDefault, None),
             "verbosity": (0, is_int),
         }
         self._files = []

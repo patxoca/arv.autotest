@@ -2,11 +2,19 @@
 
 # $Id$
 
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 
+from io import StringIO
 import unittest
+from future.utils import PY3
 
-import mock
-import six
+if PY3:
+    from unittest import mock
+else:
+    import mock
 
 from arv.autotest.reporters import Repeater
 from arv.autotest.reporters import DynamicThrottling
@@ -14,11 +22,10 @@ from arv.autotest.reporters import LineAssemblerReporter
 from arv.autotest.reporters import TerminalReporter
 
 
-
 class TestTerminalReactor(unittest.TestCase):
 
     def setUp(self):
-        self.stdout = six.StringIO()
+        self.stdout = StringIO()
         self.reactor = TerminalReporter(self.stdout)
 
     def tearDown(self):
@@ -26,7 +33,7 @@ class TestTerminalReactor(unittest.TestCase):
 
     def test_react_on_success(self):
         self.reactor.start()
-        self.reactor.feed("hello")
+        self.reactor.feed(b"hello")
         self.reactor.stop(0)
         output = self.stdout.getvalue()
         self.assert_("hello" in output)
@@ -34,7 +41,7 @@ class TestTerminalReactor(unittest.TestCase):
 
     def test_react_on_failure(self):
         self.reactor.start()
-        self.reactor.feed("world")
+        self.reactor.feed(b"world")
         self.reactor.stop(1)
         output = self.stdout.getvalue()
         self.assert_("world" in output)
@@ -49,10 +56,13 @@ class TestLineAssemblerReactor(unittest.TestCase):
                 self.start_called = False
                 self.input = []
                 self.code = None
+
             def start(self):
                 self.start_called = True
+
             def feed(self, data):
                 self.input.append(data)
+
             def stop(self, code):
                 self.code = code
         self.R = R
@@ -77,31 +87,31 @@ class TestLineAssemblerReactor(unittest.TestCase):
         wrapped = self.R()
         reactor = LineAssemblerReporter(wrapped)
         reactor.start()
-        reactor.feed("hello world")
+        reactor.feed(b"hello world")
         reactor.stop(123)
         self.assert_(wrapped.start_called)
-        self.assertEqual(wrapped.input, ["hello world"])
+        self.assertEqual(wrapped.input, [b"hello world"])
         self.assertEqual(wrapped.code, 123)
 
     def test_no_input_produces_no_output(self):
         self.assertReactorProduces([], [])
-        self.assertReactorProduces([""], [])
+        self.assertReactorProduces([b""], [])
 
     def test_only_a_newline(self):
-        self.assertReactorProduces(["\n"], ["\n"])
+        self.assertReactorProduces([b"\n"], [b"\n"])
 
     def test_no_newline_at_the_end_flushes_remaining_data(self):
-        self.assertReactorProduces(["f", "o", "o"], ["foo"])
-        self.assertReactorProduces(["f", "o", "\n", "o"], ["fo\n", "o"])
+        self.assertReactorProduces([b"f", b"o", b"o"], [b"foo"])
+        self.assertReactorProduces([b"f", b"o", b"\n", b"o"], [b"fo\n", b"o"])
 
     def test_newline_at_the_end(self):
-        self.assertReactorProduces(["f", "o", "o", "\n"], ["foo\n"])
+        self.assertReactorProduces([b"f", b"o", b"o", b"\n"], [b"foo\n"])
 
     def test_arbitrary_sized_chunks(self):
-        self.assertReactorProduces(["fo", "o"], ["foo"])
+        self.assertReactorProduces([b"fo", b"o"], [b"foo"])
 
     def test_chunks_with_newline(self):
-        self.assertReactorProduces(["f\no", "o"], ["f\n", "oo"])
+        self.assertReactorProduces([b"f\no", b"o"], [b"f\n", b"oo"])
 
 
 class TestDynamicThrottlingTimer(unittest.TestCase):

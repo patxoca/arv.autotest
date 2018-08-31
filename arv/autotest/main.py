@@ -3,6 +3,7 @@
 # $Id$
 
 from __future__ import print_function
+from __future__ import unicode_literals
 
 import pyinotify
 
@@ -25,7 +26,7 @@ def make_reporter(**kwargs):
             )
         ),
         reporters.DesktopNotifier(),
-        )
+    )
 
 
 class EventHandler(pyinotify.ProcessEvent):
@@ -38,7 +39,7 @@ class EventHandler(pyinotify.ProcessEvent):
     # catch all events
 
     # def process_default(self, event):
-    #     print str(event)
+    #     print(str(event))
 
     def process_IN_DELETE(self, event):
         if not self._filter(event):
@@ -60,6 +61,7 @@ def main():
         return 1
     throttler = event_filters.throttler_factory(cfg.throttling)
     react = make_reporter(throttler=throttler, preprocessor=cfg.preprocessor)
+
     def callback():
         runner.run(cfg.command, react)
     wm = pyinotify.WatchManager()
@@ -75,7 +77,7 @@ def main():
     for watch in cfg.watch:
         wm.add_watch(
             watch.path,
-            pyinotify.IN_CLOSE_WRITE|pyinotify.IN_DELETE,
+            pyinotify.IN_CLOSE_WRITE | pyinotify.IN_DELETE,
             rec=watch.recurse,
             auto_add=watch.auto_add
         )

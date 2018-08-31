@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = "0.2.7"
 
@@ -35,8 +34,8 @@ setup(name='arv.autotest',
       install_requires=[
           # -*- Extra requirements: -*-
           "blessings",
+          "future",
           "pyinotify",
-          "six",
       ],
       entry_points="""
       # -*- Entry points: -*-

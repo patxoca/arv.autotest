@@ -2,6 +2,8 @@
 
 # $Id$
 
+from __future__ import unicode_literals
+from builtins import object
 
 import unittest
 
@@ -14,9 +16,11 @@ class TestMemoize(unittest.TestCase):
         class Foo(object):
             def __init__(self, seed=0):
                 self.call_counter = seed
+
             def method(self, a):
                 self.call_counter += 1
                 return a + self.call_counter
+
             @memoize
             def memoized(self, a):
                 return self.method(a)

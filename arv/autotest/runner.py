@@ -2,6 +2,8 @@
 
 # $Id$
 
+from __future__ import unicode_literals
+
 import os
 import subprocess
 
@@ -22,5 +24,3 @@ def run(command, reactor):
         reactor.feed(data)
         data = os.read(fd, 1)
     reactor.stop(proc.wait())
-
-
