@@ -54,10 +54,10 @@ class LineAssemblerReporter(object):
         self._wrapped.start()
 
     def feed(self, data):
-        while "\n" in data:
-            left, data = data.split("\n", 1)
+        while b"\n" in data:
+            left, data = data.split(b"\n", 1)
             self._data.append(left)
-            self._data.append("\n")
+            self._data.append(b"\n")
             self._feed_wrapped()
         if data:
             self._data.append(data)
@@ -68,7 +68,7 @@ class LineAssemblerReporter(object):
         self._wrapped.stop(code)
 
     def _feed_wrapped(self):
-        self._wrapped.feed("".join(self._data))
+        self._wrapped.feed(b"".join(self._data))
         self._data = []
 
 
@@ -91,7 +91,7 @@ class TerminalReporter(object):
         self.counter += 1
 
     def feed(self, line):
-        print(line, file=self.stdout, end="")
+        print(line.decode("utf-8"), file=self.stdout, end="")
 
     def stop(self, code):
         if code:
