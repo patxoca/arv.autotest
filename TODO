@@ -1,61 +1,93 @@
-* in TerminalReactor: factor in its own method the construction of the
-  stamp.
+#+TITLE: Notes on arv.autotest
+#+AUTHOR: Alexis Roda
+#+EMAIL: alexis.roda.villalonga@gmail.com
 
-* add plugins:
+#+TODO: TODO(@) PAUS(@) DONE(@)
+#+TODO: | CANC(@)
 
-  * a package can declare reporters, event filters etc. using entry
-    points.
 
-  * the user specifies what reporter/filter/... to use in the config
-    file.
+* In
 
-* add optional 'command' to watches: use case, if a 'test_*.py' file
-  changes run only tests on that file, otherwise run all tests.
+** TODO Refactor =TerminalRactor=                               :enhancement:
 
-* seems like throting does not work properly. Use case:
+Factor in its own method the construction of the stamp.
 
-  - rename function with rope's C-r r, that afects many modules. Rope
-    modifies and saves the modules. That takes less than a second.
+** TODO Add support for plugins                                 :enhancement:
 
-  - autotets runs the tests as many times as modules are modified.
+- a package can declare reporters, event filters etc. using entry
+  points.
 
-* ERROR: running autotest on 'detectar_imports.py' raises an error:
+- the user specifies what reporter/filter/... to use in the config
+  file.
 
-  - is a toy project, tests are in the same directory a code
+** TODO Add optional 'command' to watches                       :enhancement:
 
-  - changing the test code raises an error:
+Use case, if a =test_*.py= file changes run only tests on that file,
+otherwise run all tests.
 
-    Traceback (most recent call last):
-      File "/home/alex/local/bin/autotest", line 9, in <module>
-        load_entry_point('arv.autotest==0.2.5', 'console_scripts', 'autotest')()
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/main.py", line 86, in main
-        notifier.loop()
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 1424, in loop
-        self.process_events()
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 1321, in process_events
-        self._default_proc_fun(revent)
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 960, in __call__
-        return _ProcessEvent.__call__(self, event)
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 680, in __call__
-        return meth(event)
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/main.py", line 49, in process_IN_CLOSE_WRITE
-        if not self._filter(event):
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 149, in filter
-        if not f(event):
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 69, in __call__
-        return self._is_interesting(event.path, event.name)
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/utils.py", line 29, in wrapper
-        f.__memoize_cache__[args] = f(*args)
-      File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 78, in _is_interesting
-        raise ValueError(path)
-    ValueError: __pycache__
+** TODO Seems like throting does not work properly                      :bug:
 
-* in my workflow the test command is something like:
+Use case:
 
-   runtests --html-report || browser report.html
+- rename function with rope's =C-r r=, that afects many modules. Rope
+  modifies and saves the modules. That takes less than a second.
 
-  the problem is that the exit code of this command is always 0 and no
-  "Tests failed" message is displayed.
+- autotets runs the tests as many times as modules are modified.
 
-  Displaying the report should be managed by a reporter implementing
-  the 'stop' method.
+** TODO Weird error                                                     :bug:
+
+Running autotest on =detectar_imports.py= raises an error:
+
+- is a toy project, tests are in the same directory a code
+
+- changing the test code raises an error:
+
+#+begin_src text
+  Traceback (most recent call last):
+    File "/home/alex/local/bin/autotest", line 9, in <module>
+      load_entry_point('arv.autotest==0.2.5', 'console_scripts', 'autotest')()
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/main.py", line 86, in main
+      notifier.loop()
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 1424, in loop
+      self.process_events()
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 1321, in process_events
+      self._default_proc_fun(revent)
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 960, in __call__
+      return _ProcessEvent.__call__(self, event)
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/pyinotify.py", line 680, in __call__
+      return meth(event)
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/main.py", line 49, in process_IN_CLOSE_WRITE
+      if not self._filter(event):
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 149, in filter
+      if not f(event):
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 69, in __call__
+      return self._is_interesting(event.path, event.name)
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/utils.py", line 29, in wrapper
+      f.__memoize_cache__[args] = f(*args)
+    File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 78, in _is_interesting
+      raise ValueError(path)
+  ValueError: __pycache__
+#+end_src
+
+** TODO Return code and compound commands                         :annoyance:
+
+In my workflow the test command is something like:
+
+#+begin_src sh
+  runtests --html-report || browser report.html
+#+end_src
+
+The problem is that the exit code of this command is always 0 and no
+"Tests failed" message is displayed.
+
+Displaying the report should be managed by a reporter implementing the
+'stop' method.
+
+
+* Done
+
+
+# Local Variables:
+# ispell-local-dictionary: "en"
+# mode: org
+# End:
