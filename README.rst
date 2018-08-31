@@ -17,7 +17,8 @@ Installation
 .. image:: https://travis-ci.org/patxoca/arv.autotest.svg?branch=master
    :target: https://travis-ci.org/patxoca/arv.autotest
 
-This program has been tested with python 2.6, 2.7, 3.3 i 3.4.
+This program has been tested with python 2.7, 3.4, 3.5, 3.6 and 3.7
+but may work with older versions.
 
 ::
 
