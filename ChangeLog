@@ -1,0 +1,645 @@
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* TODO: Added an entry (bug) to the TODO file.
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Updated classifiers in "setup.py".  In commits 51f26fe and 00989bb I forgot to update the classifiers in
+	order to enumerate the officially suported python versions.
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* : commit 01fd679fddbc1ae4d48eae5736a1fb44c9656686 Author: Alexis
+	Roda <alexis.roda.villalonga@gmail.com> Date:   Fri Aug 31 16:42:18
+	2018 +0200
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* : commit d1a967e4b449790c62db57a7796a7094671b43f0 Author: Alexis
+	Roda <alexis.roda.villalonga@gmail.com> Date:   Fri Aug 31 16:40:12
+	2018 +0200
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* : Merge remote-tracking branch 'refs/remotes/origin/master'
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* tests/test_validators.py: Removed support for python 2.6.
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/validators.py, requirements.txt, setup.py,
+	tests/test_event_filters.py, tests/test_reporters.py: Replaced
+	dependency from "six" with "future."
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/reporters.py, tests/test_reporters.py: Replaced 'str'
+	by 'bytes' in reporters.  Addapted tests.
+
+2018-08-30  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/cmdline.py, arv/autotest/config.py,
+	arv/autotest/event_filters.py, arv/autotest/main.py,
+	arv/autotest/reporters.py, arv/autotest/runner.py,
+	arv/autotest/utils.py, arv/autotest/validators.py, setup.py,
+	tests/test_config.py, tests/test_event_filters.py,
+	tests/test_memoize.py, tests/test_reporters.py,
+	tests/test_runner.py, tests/test_validators.py: Futurized code.  Added dependency from "future".
+
+2018-08-30  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* tests/test_reporters.py: Added conditional import of "mock"
+	depending on python version.
+
+2018-08-30  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* .gitignore: Added ".pytest_cache" to ".gitignore".
+
+2018-08-30  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/cmdline.py, arv/autotest/config.py,
+	arv/autotest/event_filters.py, arv/autotest/main.py,
+	arv/autotest/reporters.py, arv/autotest/runner.py,
+	arv/autotest/utils.py, arv/autotest/validators.py, setup.py,
+	tests/test_config.py, tests/test_event_filters.py,
+	tests/test_memoize.py, tests/test_reporters.py,
+	tests/test_runner.py, tests/test_validators.py: Make the code more
+	PEP8 compliant.  Removed a couple of unused imports and added/removed withespace.
+	Passes "pycodestyle" checks except for the maximum line length.
+
+2016-04-26  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* ChangeLog, setup.py: Release 0.2.7
+
+2016-04-26  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* TODO: Add a couple of entries to the TODO file.
+
+2016-04-26  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/reporters.py: Fix error in reporter
+	'DesktopNotifier'.  Replace '&&' by ';' in shell command so that the notifier is called
+	even if 'killall' can't call any process.
+
+2015-04-06  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* MANIFEST.in: Added MANIFEST.in.
+
+2015-04-06  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Release 0.2.6
+
+2015-04-06  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* requirements.txt, setup.py: Reverted previous commit.  I forgot that Travis CI requires a 'requirements.txt' file to be
+	present in order to setup the test environment.
+
+2015-04-06  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* requirements.txt, setup.py: Moved version dependencies to
+	setup.py.
+
+2015-04-02  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* .travis.yml: Added python 3.4 to travis configuration.
+
+2015-04-02  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* requirements.txt: Relax version constraints in requirements.txt
+
+2015-04-02  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Bump version number.
+
+2015-04-02  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/main.py: Force a test run on startup.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* README.rst: Update README.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Bump version number.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/validators.py: Remove dict comprehension to regain
+	python 2.6 compatibility.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Bump version.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* TODO: Update TODO.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/config.py, arv/autotest/main.py,
+	arv/autotest/reporters.py: Add reporter to preprocess lines.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/config.py, arv/autotest/utils.py,
+	arv/autotest/validators.py, tests/test_typed_object.py,
+	tests/test_validators.py: Get rid of 'TypedObject'.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/config.py, tests/test_typed_object.py: Clean up
+	'_parse_config'.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/config.py, arv/autotest/main.py: Add proper error
+	handling to configuration parsing.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/main.py: Avoid calling 'main' twice.
+
+2015-01-04  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/validators.py: Made 'make_validator_from_predicate'
+	more robust.
+
+2014-05-22  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Increase version number.
+
+2014-05-22  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/main.py, arv/autotest/reporters.py, setup.py: Added a
+	reporter that display test status using libnotify.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* .travis.yml, test_requirements.txt: 'unittest2' is not compatible
+	with python 3.x. Remove the 'test-requirements.txt' file and install
+	'unittest2' conditionally.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* README.rst: Added travis passing/failing image to the README.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* .travis.yml: Forgot to add '.travis.yml' (still getting used to
+	git). Added.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* test_requirements.txt: Testing under python 2.6 requires
+	'unittest2'. Added the 'test_requirements.txt' file and modified
+	'.travis.yml'.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* travis.yml => .travis.yml: Renamed 'travis.yml' to '.travis.yml'.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* requirements.txt, travis.yml: Added 'travis.yml' and
+	'requirements.txt'.
+
+2014-04-29  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* .gitignore: Added .gitignore
+
+2014-04-28  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* README.rst: Update 'README.rst'.
+
+2014-04-28  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* README.rst: Correcting installation instructions.
+
+2014-04-28  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* setup.py: Add github URL top 'setup.py'.
+
+2014-04-26  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO: Actualitzat el TODO.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@55
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-26  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* tests/test_config.py, tests/test_event_filters.py: Es canvien un
+	parell de test cases per netejar els arixus temporals creats.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@54
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-26  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, arv/autotest/reporters.py, tests/test_event_filters.py: 
+	S'afegeix un test pel mètode 'adjust_delta' del filtre
+	'throttler_factory'.  No li veig molt de sentit al condicional 'delta > 0' en el mètode
+	'stop' del reporter 'DynamicThrottling'. S'elimina.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@53
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-26  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* tox.ini: S'afegeix un nou testenv a 'tox.ini' per generar un
+	informe de cobertura del codi.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@52
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-25  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* setup.py: Es tradueix la descripció a l'anglès i s'incrementa el
+	número de revisió.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@51
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-25  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* arv/__init__.py, {autotest => arv/autotest}/__init__.py,
+	{autotest => arv/autotest}/cmdline.py, {autotest =>
+	arv/autotest}/config.py, {autotest =>
+	arv/autotest}/event_filters.py, {autotest => arv/autotest}/main.py,
+	{autotest => arv/autotest}/reporters.py, {autotest =>
+	arv/autotest}/runner.py, {autotest => arv/autotest}/utils.py,
+	{autotest => arv/autotest}/validators.py, autotest.cfg, setup.py,
+	tests/test_config.py, tests/test_event_filters.py,
+	tests/test_memoize.py, tests/test_reporters.py,
+	tests/test_runner.py, tests/test_typed_object.py,
+	tests/test_validators.py: Al anar a registrar el paquet en pypi
+	resulta que ja existeix un 'autotest'. Per evitar conflictes de noms
+	es converteix en el namespace package 'arv.autotest'.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@50
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-25  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* setup.py: S'incrementa el número de versió.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@48
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-25  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/event_filters.py, autotest/main.py,
+	autotest/reporters.py, tests/test_reporters.py, tox.ini: 
+	S'implementa en reporter 'DynamicThrottling' que ajusta
+	dinàmicament un throttler en funció de la durada dels tests.  * s'afegeix el mètode 'adjust_delta' a la classe
+	'throttle_factory'.  * la funció 'make_reporter' es mou al mòdul 'main'. És un detall   d'implementació, no una funció genèrica per combinar reporters.    S'ajusta per incloure el nou reporter i s'ajusta la funció
+	  'main'.  * es defineix el reporter 'Repeater' per combinar reporters. Permet
+	  a varis reporters rebre notificacions del runner.  * s'afegeixen tests * per facilitar els tests s'utilitza el paquet 'mock'. S'afegeix com   dependència per tox.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@47
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-24  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* tests/test_event_filters.py, tests/test_validators.py, tox.ini: 
+	Canvis per compatibilitat amb python 2.6 i 3.x: * en python 2.6 unittest no defineix 'assertRaisesRegex'. Per 2.6   s'utilitza unittest2. S'incorpora com dependència per tox.  * en python 3.x els generados no tenen un mètode 'next()'. Depenent
+	  de la funció s'utilitza 'next()' o '__next__()'.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@46
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-24  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, autotest.cfg, autotest/config.py,
+	autotest/event_filters.py, autotest/main.py,
+	tests/test_event_filters.py: S'implementa un filtre per limitar el
+	nombre d'events per segon. S'afegeixen tests.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@45
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-23  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/validators.py, tests/test_validators.py: Es defineixen el
+	validador 'is_float' i la factoria 'all'. S'afegeixen tests.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@44
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-23  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/reporters.py: S'afegeix un reporter per facilitar la
+	depuració.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@43
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* setup.cfg: Primera release (no 'dev').  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@41
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, autotest/reporters.py: Es resol el problema amb l'amplada de
+	la terminal: per error vaig ficar 'is_tty' enlloc de 'is_a_tty'. Per
+	la forma en que està dissenyada la classe 'blessings.Terminal' no
+	es disparava cap excepció 'AttributeError', enlloc d'això
+	retornava 'None'.  S'actualitza el TODO.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@40
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO: S'elimina una entrada del TODO. Sembla que el problema amb
+	el coverage està relacionat d'alguna forma amb els arxius '.pyc'.
+	Recompilant el mòdul afectat l'informe mostra el coverage correcte.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@39
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/validators.py: Es documenten els validadors.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@38
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO: S'elimina una entrada del TODO resolta en una revisió
+	anterior.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@37
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/main.py, autotest/reporters.py, tests/{test_filters.py
+	=> test_event_filters.py}, tests/{test_reactor.py =>
+	test_reporters.py}: Es finalitza el renombrat de mòduls renombrant
+	les classes/funcions i ajustant la documentació.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@36
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-22  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/{filters.py => event_filters.py}, autotest/main.py,
+	autotest/{reactor.py => reporters.py}, tests/test_filters.py,
+	tests/test_reactor.py: Es renombren els mòduls 'reactor' com
+	'reporters' i 'filters' com 'event_filters'. S'ajusten els mòduls
+	afectats.  Que gran és rope per refactoritzar i autotest monitoritzant
+	nosetests per verificar ràpidament que tot segueix funcionant!! git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@35
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* tests/test_filters.py: S'afegeix un test per verificar que el
+	validador construït per la classe 'simple_event_filter_factory'
+	dispara una excepció 'ValueError' si l'event cau fora de tots els
+	directoris monitoritzats.  No hauria de passar mai, però si passa vull estar assabentat.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@34
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, tests/test_filters.py: S'afegeix un test per verificar que
+	si un event no és exclòs ni inclòs per cap watch llavors és
+	exclòs.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@33
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO: S'elimina una entrada del TODO resolta en una revisió
+	anterior.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@32
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/utils.py: Es simplifica un poc el mètode '__getattr__'
+	de 'TypedObject'.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@31
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, autotest/main.py, autotest/reactor.py, autotest/runner.py,
+	tests/test_reactor.py, tests/test_runner.py: Fins ara el 'reactor'
+	era executat una vegada el 'runner' havia finalitzat. Fàcil de
+	implementar però poc pràctic al executar processos lents.  S'ha modificat l'arquitectura de forma que el 'reactor' rep dades
+	segons estan disponibles: * autotest/runner.py: es substitueix 'subprocess.check_output' per   l'us directe de 'Popen'. Un bucle llegeix la sortida del procés i   l'envia al 'reactor'.  * autotest/reactor.py: es reimplementen els reactors com classes amb   els métodes 'start', 'feed' i 'stop'. El runner crida 'start' al   començar a executar el procés, 'feed' segons hi han dades   disponibles i finalment amb 'stop' informa del codi de sortida.    Com a prova de concepte s'ha implementat un reactor que
+	  preprocessa les dades abans de passar-les a un segon reactor.  * autotest/main.py: s'ajusta la funció 'main' per ensamblar el
+	  runner amb el reactor.  S'ajusten els tests.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@30
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/filters.py: En el filtre 'simple_event_filter_factory',
+	no trobar el contenidor d'un event es considera un error. Açò
+	significaria que estem rebent un event per un arxiu ubicat fora dels
+	directoris monitoritzats.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@29
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, autotest/filters.py, autotest/utils.py,
+	tests/test_memoize.py: Per millorar el rendiment s'afegeix una cache
+	a la classe 'simple_event_filter_factory'. La idea és que una
+	vegada determinem que un arxiu és o no interessant (dispara o no
+	l'execució de la comanda), aquest valor no canviarà, seguirà sent
+	o no interessant durant la resta de l'execució.  * s'implementa el decorador 'utils.memoize()'.  * s'afegeixen tests per validar-lo * el mètode 'simple_event_filter_factory.__call__()' delega en un   mètode intern memoitzat ('_is_interesting'). Aquest mètode
+	  només rep la ruta i nom de l'arxiu.  S'elimina l'entrada del TODO.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@28
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO, autotest/cmdline.py, autotest/main.py: S'afegeix
+	processament d'opcions de línia d'ordres. Per mantindre al
+	compatibilitat amb python 2.6 (i pq. el parser és molt senzill)
+	s'opta per 'optparser', encara que estigui *deprecated*.  S'actualitza el TODO.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@27
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/reactor.py, tests/test_reactor.py: 'from __future__
+	import ...' no és un import tradicional, cal que aparegui
+	obligatòriament al començament del codi.  Aquest mòdul no era testejat i no s'ha detectat l'error fins que
+	s'ha reiniciat el programa. S'afegeix un joc de proves. Cal fer
+	alguns canvis al codi de 'reactor.py': * per simplificar els tests de 'react()' se li afegeix un argument
+	  per especificar l'arxiu de sortida ('stdout' per defecte). Es
+	  modifiquen els 'print()' per utilitzar aquest arxiu de sortida.  * es mou la creació de la 'Terminal' dins 'react()' per poder   passar-li l'arxiu de sortida.  * al executar els tests no existeix una terminal i la seva amplada
+	  val 'None'. Açò dispara una excepció al intentar calcular
+	  l'amplada del camp dins el que centrar el missatge. Es precalcula
+	  'width' comprovant si es tracta d'una tty, en cas negatiu s'utilitza
+	  una amplada de 80.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@26
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* LICENSE, TODO: S'afegeix un arxiu de llicència. S'actualitza el
+	TODO.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@25
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* TODO: S'afegeix un 'TODO' al repositori.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@24
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-21  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* README.rst, autotest/config.py, autotest/reactor.py,
+	autotest/runner.py, autotest/validators.py, setup.py,
+	tests/test_config.py, tests/test_validators.py, tox.ini: Canvis per
+	fer el codi compatible amb python 3.3 i 3.4. És la meva primera
+	experiència amb python 3.x i és molt possible que m'haja descuidat
+	algun detall: * README.rst: Es documenta la compatiblitat amb les version de
+	python.  * autotest/config.py:   * en python 3.x l'atribut 'message' de les excepcions ha     desaparegut. En el seu lloc s'utilitza 'args[0]'.    * es canvia 'file()' per 'open()' * autotest/reactor.py: s'activa la funció 'print' per python 2.x * autotest/runner.py: el tipus del valor retornat en 3.x per la
+	  funció 'subprocess.check_output' és byte i al imprimir-lo apareix
+	  la seva 'repr' (no s'imprimeix bé). Segons la documentació afegint
+	  el paràmetre 'universal_newlines' es converteix a unicode (i   s'imprimeix bé).  * autotest/validators.py:   * en 3.x 'map' retorna un iterador y el codi espera una llista. Es     canvia per una 'list comprehension'.    * s'implementen els validadors 'is_str' i 'is_unicode' en termes
+	    de 'six' per fer-los compatibles amb 2.x i 3.x. En el cas de     'is_regex' s'implementa en termes d'altres validadors.  * setup.py:   * es canvia 'file()' per 'open()'   * s'afegeixen 'classifiers' per les versions de python suportades   * s'afegeix la dependència de 'six' per la compatibilitat 2.x/3.x * tests/test_config.py * tests/test_validators.py   s'especifica explicitament el tipus d'algunes cadenes (str 2.x,
+	  byte 3.x) * tox.ini: s'afegeixen el entorns py33 i py34 git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@23
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* tox.ini: S'afegeix l'arxiu 'tox.ini' per automatitzar l'execució
+	dels test amb les versions de python 2.6 i 2.7.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@22
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/utils.py: Python 2.6 no suporta 'dictionary
+	comprehension'. Es substitueixen per bucles explicits.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@21
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/runner.py, tests/test_runner.py: Al fer proves amb python
+	2.6 s'ha detectat que el mòdul 'subprocess' d'aquesta versió no
+	defineix la funció 'check_output'. Es backporta (amb modificacions
+	menors) de la versió 2.7 i s'afegeix un test per comprovar que el
+	'runner' funciona.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@20
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* tests/test_validators.py: Al fer proves amb python 2.6 he detectat
+	que l'objecte resultant de 'validators.is_regex()' (el resultat de
+	're.compile()') no té un atribut '__class__'. Açò fa que falli un
+	dels tests.  Per evitar problemes es comprova que el resultat té un métode
+	'match' (que al cap i a la fi és el que fa servir la resta del
+	codi).  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@19
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* README.rst, autotest.cfg, setup.py: S'afegeix un README amb una
+	mini guia.  S'afegeix l'arxiu 'autotest.cfg' al repositori.  S'afegeix la dependència de 'pyinotify' a 'setup.py'.  Altres canvis menors a 'setup.py'.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@18
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/config.py: Es canvia el valor per defecte de les opcions
+	'recurse' i 'auto_add'. Sembla més pràctic que sigui 'True' per
+	defecte.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@17
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/main.py: S'ajusta el mòdul 'main.py' als canvis fets en
+	les últimes revisions.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@16
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/config.py: Es millora la definició de l'esquema de
+	l'arxiu de configuració: aquesta versió permet especificar una
+	llista de *watches* a més d'una llista d'exclusió global.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@15
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/walker.py: Tal com ha evolucionat el programa (i la meva
+	comprensió del funcionament de 'pyinotify') el mòdul 'walker.py'
+	no és necessari. S'elimina.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@14
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/filters.py, tests/test_filters.py: Al fer les proves s'ha
+	detectat que les eines emprades en el desenvolupament poden generar
+	arxius intermedis (p.e. els editors), manipular arxius auxiliars (el
+	control de revisions) etc. provocant falsos *events interessants*.  Per mirar d'evitar-ho en lo possible s'ha afegit una opció
+	'global_ignores' a la factoria 'simple_event_filter_factory' que
+	permet especificat patrons a ignorar globalment.  S'afegeix un test per verificar el funcionament.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@13
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/validators.py, tests/test_validators.py: Es corregeix un
+	error en el validador 'is_regex': només comprova que la regex
+	concordi en un prefix del valor. Es modifica afegint explicitament
+	un '$' al final de l'expressió regular per garantir que concorda
+	tot el valor.  S'inclou un test per validar-ho.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@12
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/filters.py, tests/test_filters.py: S'afegeix el mòdul
+	'filters' per definir filtres i factories que abstrauen la idea
+	"estic/no-estic interessat en cert event". Açò permet factoritzar
+	aquest codi fora del gestor d'events, simplificant la seva
+	implementació.  S'afegeixen els corresponents tests.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@11
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/utils.py: Es corregeix un error en el text del missatge
+	d'una excepció.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@10
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-20  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/validators.py, tests/test_validators.py: Es defineix una
+	nova factoria de validadors per composar (executar en seqüència)
+	validadors.  Es defineix el validador 'is_regex'.  S'afegeixen tests per verificar el funcionament.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@9
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-19  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/validators.py, tests/test_validators.py: S'afegeix el
+	mòdul 'validators.py' per facilitar definir l'esquema de l'arxiu de
+	configuració.  S'inclouen jocs de proves per verificar el funcionament.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@8
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-19  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/utils.py, tests/test_config.py,
+	tests/test_typed_object.py: Es modifica la classe 'TypedObject' per
+	permetre que els validadors de les diferents opcions puguin alterar
+	el valor que reben com argument. Açò simplificarà definir schemes
+	més complexos en els que un validador valida i converteix un
+	objecte JSON en un objecte python.  S'ajusten els validados utilitzats en els tests. S'afegeix un nou
+	test a 'TestSetAttr' per verificar que l'opció rep el valor
+	retornat pel validador, no el valor original. Cal ampliar l'esquema
+	utilitzat en aquest test.  Al fer aquests canvis s'ha detectat un error en la implementació
+	del mètode '__setattr__' de 'TypedObject': el valor s'emmagatzema
+	en el diccionari '__dict__' de l'objecte quan s'hauria de fer en
+	'_values'. Es corregeix i s'afegeix un test per comprovar-ho.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@7
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-19  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/config.py, autotest/utils.py, tests/test_config.py,
+	tests/test_typed_object.py: S'implementa el processament de l'arxiu
+	de configuració: * s'afegeix el mòdul 'utils.py' que defineix el simbol 'NoDefault'
+	  i la classe 'TypedObject'. El primer s'utilitza com un marcador   alternatiu a 'None' i la segona utilitza un esquema per determina   quines opcions/valors son acceptables.  * en 'config.py' es defineix un esquema senzill i dos funcions per   llegir i parsejar (privada) la configuració.  * s'afegeixen jocs de proves per testejar la funcionalitat.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@6
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-19  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/reactor.py: En les proves fetes en el propi 'autotest'
+	s'ha detectat que resulta dificil determinar si el script s'ha
+	executat (la sortida generada per execucions consecutives tendeix a
+	ser la mateixa).  Per mirar de resoldre-ho s'ha afegit un comptador d'execució i la
+	data i hora a la "barra" informativa.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@5
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-19  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* setup.py: Es defineix un entry-point de tipus 'console_script' per
+	automatitzar la generació de l'executable.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@4
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-18  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/reactor.py, setup.py: S'elimina l'ús de codis ANSI en
+	favor de la llibreria 'blessings'.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@3
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-18  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* autotest/config.py, autotest/main.py, autotest/reactor.py,
+	autotest/runner.py, autotest/walker.py: Es crea un esquelet
+	funcional per poder experimentar.  Algunes parts retornen valors fixats (el walker retorna sempre la
+	mateixa llista d'arxius i la configuració també està fixada).
+	S'aniran implementant sobre la marxa segons es vegin el que es
+	necessita.  git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@2
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
+2014-04-16  alex <alex@6fc8c6bf-3316-0410-aa01-e414f6f0c4bf>
+
+	* Importacio inicial de autotest git-svn-id: file:///tmp/svn/repo/prova/autotest/trunk@1
+	6fc8c6bf-3316-0410-aa01-e414f6f0c4bf
+
