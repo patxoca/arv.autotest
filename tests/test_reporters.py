@@ -3,8 +3,11 @@
 # $Id$
 
 from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
 from builtins import object
 
+from io import StringIO
 import unittest
 from future.utils import PY3
 
@@ -12,7 +15,6 @@ if PY3:
     from unittest import mock
 else:
     import mock
-import six
 
 from arv.autotest.reporters import Repeater
 from arv.autotest.reporters import DynamicThrottling
@@ -23,7 +25,7 @@ from arv.autotest.reporters import TerminalReporter
 class TestTerminalReactor(unittest.TestCase):
 
     def setUp(self):
-        self.stdout = six.StringIO()
+        self.stdout = StringIO()
         self.reactor = TerminalReporter(self.stdout)
 
     def tearDown(self):

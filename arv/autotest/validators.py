@@ -13,12 +13,11 @@ exception.
 """
 
 from __future__ import unicode_literals
+from builtins import bytes
 from builtins import str
 
 import os.path
 import re
-
-import six
 
 from arv.autotest.utils import Bunch
 from arv.autotest.utils import NoDefault
@@ -144,8 +143,8 @@ is_bool = make_validator_from_class(bool)
 is_dir = make_validator_from_predicate(os.path.isdir)
 is_float = make_validator_from_class(float)
 is_int = make_validator_from_class(int)
-is_str = make_validator_from_class(six.binary_type)
-is_unicode = make_validator_from_class(six.text_type)
+is_str = make_validator_from_class(bytes)
+is_unicode = make_validator_from_class(str)
 
 is_regex = compose(
     is_unicode,

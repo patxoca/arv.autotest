@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 from builtins import object
+from future.utils import PY2
 
 import os
 import re
@@ -12,7 +13,6 @@ import tempfile
 import unittest
 
 import pyinotify
-import six
 
 from arv.autotest.config import watch_node_validator
 from arv.autotest.event_filters import and_
@@ -48,7 +48,7 @@ def make_fake_timer(start, deltas):
         for i in deltas:
             total += i
             yield total
-    if six.PY2:
+    if PY2:
         return generator().next
     else:
         return generator().__next__

@@ -36,7 +36,6 @@ setup(name='arv.autotest',
           "blessings",
           "future",
           "pyinotify",
-          "six",
       ],
       entry_points="""
       # -*- Entry points: -*-
