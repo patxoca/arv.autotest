@@ -49,3 +49,13 @@
       File "/home/alex/pyvenv/eines/lib/python2.7/site-packages/arv/autotest/event_filters.py", line 78, in _is_interesting
         raise ValueError(path)
     ValueError: __pycache__
+
+* in my workflow the test command is something like:
+
+   runtests --html-report || browser report.html
+
+  the problem is that the exit code of this command is always 0 and no
+  "Tests failed" message is displayed.
+
+  Displaying the report should be managed by a reporter implementing
+  the 'stop' method.
