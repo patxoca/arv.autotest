@@ -1,3 +1,15 @@
+2019-01-26  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* : Afegides icones de diferents mides.
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* TODO: Format TODO as an org file.
+
+2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* ChangeLog, setup.py: Release 0.2.8
+
 2018-08-31  Alexis Roda <alexis.roda.villalonga@gmail.com>
 
 	* TODO: Added an entry (bug) to the TODO file.
