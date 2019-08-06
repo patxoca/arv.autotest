@@ -1,3 +1,11 @@
+2019-08-06  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* arv/autotest/reporters.py: Added "urgency" to "notify-send".
+
+2019-01-26  Alexis Roda <alexis.roda.villalonga@gmail.com>
+
+	* ChangeLog, setup.py: Release 0.2.9
+
 2019-01-26  Alexis Roda <alexis.roda.villalonga@gmail.com>
 
 	* : Afegides icones de diferents mides.
