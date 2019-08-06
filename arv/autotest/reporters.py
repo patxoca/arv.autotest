@@ -190,10 +190,12 @@ class DesktopNotifier(object):
             if code:
                 result = "Tests failed!"
                 icon = self.failed_icon
+                urgency = "critical"
             else:
                 result = "Tests succeed!"
                 icon = self.succeed_icon
-            cmd = "killall notify-osd ; %s --icon %s '%s'" % (self.notifier, icon, result)
+                urgency = "normal"
+            cmd = "killall notify-osd ; %s --urgency %s --icon %s '%s'" % (self.notifier, urgency, icon, result)
             os.system(cmd)
 
     def start(self):
